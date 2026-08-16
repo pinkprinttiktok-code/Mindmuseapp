@@ -1,0 +1,6 @@
+# Tells Netlify where the serverless function lives.
+# No bundler setting on purpose: manual zip deploys don't run a build step,
+# and advise.js is plain CommonJS with zero dependencies, so it needs no bundling.
+[build]
+  publish = "."
+  functions = "netlify/functions"
