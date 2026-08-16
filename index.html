@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#FDF7F1">
+<title>MindMuse — Build your pinkprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light only;
+  --cream:#FDF7F1; --cream-deep:#F7EADF; --blush:#F9DCE6; --lavender:#EAE1F6; --sky:#DDEAF2;
+  --rose:#C97B96; --rose-deep:#9E4E70; --ink:#3A2E38; --gray:#7C6C77; --hair:#EDDFE4;
+  --star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z' fill='%23C97B96'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{background:#FDF7F1}
+body{margin:0;background:var(--cream);color:var(--ink);
+  forced-color-adjust:none;-webkit-text-fill-color:currentColor;
+  font-family:"Karla",-apple-system,BlinkMacSystemFont,sans-serif;font-size:17px;line-height:1.62}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+h1,h2,h3,.serif{font-family:"Fraunces",Georgia,serif}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(253,247,241,.86);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--hair)}
+.nav .wrap{display:flex;align-items:center;gap:11px;height:66px}
+.navlinks{display:flex;gap:8px;flex:1 1 auto;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks button{flex:0 0 auto;font-family:"Karla",sans-serif;cursor:pointer;color:var(--rose-deep);
+  background:rgba(255,255,255,.72);border:1px solid var(--hair);border-radius:100px;
+  padding:9px 16px;font-weight:700;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase}
+.navlinks button:hover,.navlinks button:focus{background:#fff;border-color:var(--rose);outline:none}
+.navlinks button.on{background:var(--rose-deep);color:#FFF6FA;border-color:var(--rose-deep)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:56px 0 66px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:radial-gradient(90% 62% at 82% 6%, var(--sky) 0%, transparent 62%),
+    radial-gradient(78% 58% at 10% 22%, var(--lavender) 0%, transparent 66%),
+    radial-gradient(96% 74% at 46% 108%, var(--blush) 0%, transparent 70%),
+    linear-gradient(180deg,#FFFBF7 0%, var(--cream-deep) 100%)}
+.glow{position:absolute;border-radius:50%;filter:blur(58px);opacity:.5;z-index:-1;pointer-events:none}
+.glow.a{width:260px;height:260px;background:#F4C8DA;top:-52px;right:-64px}
+.glow.b{width:220px;height:220px;background:#D9CBF0;bottom:2px;left:-78px}
+.twinkle{position:absolute;z-index:-1;opacity:.62;animation:drift 7s ease-in-out infinite;pointer-events:none}
+.twinkle.t1{top:12%;right:16%;width:20px}.twinkle.t2{top:34%;right:7%;width:13px;animation-delay:1.4s}
+.twinkle.t3{top:62%;right:22%;width:16px;animation-delay:2.8s}.twinkle.t4{top:78%;left:6%;width:12px;animation-delay:2s}
+.twinkle.t5{top:22%;left:78%;width:9px;animation-delay:3.6s}
+@keyframes drift{0%,100%{transform:translateY(0) scale(1);opacity:.45}50%{transform:translateY(-11px) scale(1.14);opacity:.85}}
+.bigmark{margin-bottom:26px}
+.eyebrow{display:flex;align-items:center;gap:9px;font-weight:700;font-size:12.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--rose-deep);margin:0 0 16px}
+.eyebrow::before{content:"";width:13px;height:13px;flex:0 0 auto;
+  background:var(--star) no-repeat center/contain}
+.hero h1{font-weight:700;font-size:clamp(42px,11vw,80px);line-height:1.0;
+  letter-spacing:-.028em;margin:0 0 22px;max-width:13ch}
+.hero h1 span{color:var(--rose-deep);font-style:italic;font-weight:600}
+.hero .sub{font-size:18.5px;color:var(--gray);max-width:46ch;margin:0 0 30px}
+.cta-row{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.btn{display:inline-block;border:0;cursor:pointer;text-decoration:none;border-radius:100px;
+  padding:17px 32px;font-family:"Karla",sans-serif;font-weight:700;font-size:15.5px;
+  letter-spacing:.07em;text-transform:uppercase;transition:transform .2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--rose-deep);color:#FFF6FA;box-shadow:0 10px 26px rgba(158,78,112,.26)}
+.btn-primary:hover,.btn-primary:focus{background:#8A4160;outline:none}
+.btn-ghost{background:rgba(255,255,255,.86);color:var(--ink);box-shadow:0 4px 16px rgba(58,46,56,.09)}
+.btn-ghost:hover,.btn-ghost:focus{color:var(--rose-deep);outline:none}
+
+/* cards */
+.card,.year,.panel,.tile,.hub-card,.course{background:rgba(255,255,255,.78);
+  border:1px solid var(--hair);border-radius:26px;box-shadow:0 6px 22px rgba(158,78,112,.06)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);filter:blur(8px);
+  transition:opacity .9s cubic-bezier(.22,.68,.28,1),transform .9s cubic-bezier(.22,.68,.28,1),filter .9s ease;
+  transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none;filter:blur(0)}
+
+/* hub */
+.hub{padding:40px 0 0;display:grid;grid-template-columns:1fr;gap:14px}
+.hub-card{padding:26px 22px;color:inherit;display:block;width:100%;text-align:left;
+  font-family:"Karla",sans-serif;font-size:17px;cursor:pointer;transition:transform .25s ease}
+.hub-card:hover{transform:translateY(-3px)}
+.hub-card .tag{display:inline-flex;align-items:center;gap:7px;font-family:"JetBrains Mono",monospace;
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-deep)}
+.hub-card .tag::before{content:"";width:11px;height:11px;background:var(--star) no-repeat center/contain}
+.hub-card h3{font-weight:600;font-size:23px;margin:10px 0 8px;letter-spacing:-.015em;line-height:1.2}
+.hub-card p{margin:0;color:var(--gray);font-size:15.5px;line-height:1.55}
+
+/* sections */
+.view{display:none}
+.view.on{display:block}
+.sec{padding:38px 0 0}
+.sec h2{font-weight:700;font-size:clamp(30px,6.5vw,44px);letter-spacing:-.028em;margin:0 0 10px;line-height:1.05}
+.sec .lede{margin:0 0 24px;color:var(--gray);max-width:56ch}
+.card{padding:26px 22px}
+
+/* form bits */
+.field{margin-bottom:18px}
+.field label{display:block;font-weight:700;font-size:12px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.field input,.field select{width:100%;padding:15px 17px;border:2px solid var(--hair);border-radius:16px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:17px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--rose);background:#fff}
+.field .hint{font-size:13.5px;color:var(--gray);margin-top:6px}
+.seg{display:flex;gap:8px;margin-bottom:20px}
+.seg button{flex:1;padding:13px;border-radius:100px;border:1px solid var(--hair);background:var(--cream);
+  color:var(--ink);font-family:"Karla",sans-serif;font-weight:700;font-size:14px;cursor:pointer}
+.seg button.on{background:var(--rose-deep);color:#FFF6FA;border-color:var(--rose-deep)}
+.two{display:grid;grid-template-columns:1fr;gap:0 16px}
+
+/* result */
+.result{margin-top:22px;padding:26px 23px;border-radius:22px;border:1px solid #E5D8E8;
+  background:radial-gradient(78% 88% at 10% 6%, #F7DBE9 0%, transparent 58%),radial-gradient(72% 82% at 94% 94%, #D9E8F4 0%, transparent 60%),linear-gradient(150deg,#F3E6F0 0%,#EDE5F4 55%,#E7EAF4 100%);color:var(--ink);box-shadow:0 6px 22px rgba(158,78,112,.07)}
+.result .rlabel{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-deep);margin:0 0 10px}
+.result h3{font-weight:600;font-size:26px;margin:0 0 6px;color:var(--ink)}
+.result .big{font-family:"Fraunces",Georgia,serif;font-size:48px;font-weight:700;
+  letter-spacing:-.03em;color:var(--rose-deep);line-height:1.02;margin:0 0 4px}
+.result p{margin:10px 0 0;font-size:16px;line-height:1.6}
+.result .row{display:flex;flex-wrap:wrap;gap:22px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(158,78,112,.2)}
+.result .row div{min-width:110px}
+.result .row span{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+.result .row b{font-size:19px;font-weight:700;color:var(--ink)}
+.warn{background:radial-gradient(78% 88% at 10% 6%, #FBD2DE 0%, transparent 58%),radial-gradient(72% 82% at 94% 94%, #F3DCE6 0%, transparent 60%),linear-gradient(150deg,#F8E0E8 0%,#F4DCE6 100%);border-color:#EFCFDB}
+
+/* plan grid */
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+.year{padding:22px 20px 24px}
+.year h3{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rose-deep);margin:0 0 15px;padding-bottom:12px;border-bottom:1px solid var(--hair)}
+.year ul{list-style:none;margin:0;padding:0}
+.year li{font-size:16px;line-height:1.44;margin-bottom:13px}
+.year li:last-child{margin-bottom:0}
+.year li.ap{font-weight:700;color:var(--rose-deep);padding-left:22px;
+  background:var(--star) no-repeat 0 3px;background-size:14px 14px}
+.year li .note{display:block;font-weight:400;font-size:13.5px;color:var(--gray);margin-top:3px}
+.empty{border:1.5px dashed #E4CDD6;border-radius:26px;background:rgba(255,255,255,.6);
+  padding:44px 24px;text-align:center;color:var(--gray)}
+.empty strong{display:block;color:var(--ink);font-size:22px;margin-bottom:7px;
+  font-family:"Fraunces",Georgia,serif;font-weight:600}
+
+/* panels */
+.panels{padding:26px 0 0;display:grid;grid-template-columns:1fr;gap:14px}
+.panel{padding:25px 22px}
+.panel h4{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin:0 0 15px}
+.panel ul{margin:0;padding:0;list-style:none}
+.panel li{margin-bottom:18px;font-size:16px;padding-left:23px;line-height:1.5;
+  background:var(--star) no-repeat 0 6px;background-size:12px 12px}
+.panel li:last-child{margin-bottom:0}
+.panel li b{display:block;font-weight:700;color:var(--rose-deep);margin-bottom:4px;line-height:1.35}
+.panel li .why{display:block;font-size:15px;color:var(--gray);line-height:1.5}
+.panel.wide{grid-column:1/-1}
+.panel.wide li b{color:var(--ink);font-size:16.5px}
+.panel.wide li .why{font-size:15px}
+.panel.wide ul{display:grid;grid-template-columns:1fr;gap:12px}
+.panel .caveat{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--hair);
+  font-size:15px;color:var(--gray);font-style:italic;line-height:1.55}
+.paynum{font-family:"Fraunces",Georgia,serif;font-size:32px;font-weight:700;
+  color:var(--rose-deep);letter-spacing:-.02em;display:block;margin-bottom:6px}
+.truth{background:radial-gradient(78% 88% at 10% 6%, #F7DBE9 0%, transparent 58%),radial-gradient(72% 82% at 94% 94%, #D9E8F4 0%, transparent 60%),linear-gradient(150deg,#F3E6F0 0%,#EDE5F4 55%,#E7EAF4 100%);border-color:#E5D8E8;color:var(--ink)}
+.truth h4{color:var(--rose-deep)}
+.truth p{margin:0;font-size:17px;line-height:1.65}
+
+/* picker */
+.picker{position:relative}
+.picker label{display:block;font-weight:700;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+#search{width:100%;padding:16px 18px;border:2px solid var(--hair);border-radius:16px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:17px}
+#search:focus{outline:none;border-color:var(--rose);background:#fff}
+.results{position:absolute;z-index:30;left:0;right:0;top:100%;margin-top:8px;background:#fff;
+  border:1px solid var(--hair);border-radius:18px;overflow:hidden auto;max-height:282px;display:none;
+  box-shadow:0 22px 46px rgba(58,46,56,.16)}
+.results.open{display:block}
+.results button{display:block;width:100%;text-align:left;border:0;background:none;padding:13px 18px;
+  font-family:"Karla",sans-serif;font-size:16px;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--hair)}
+.results button:last-child{border-bottom:0}
+.results button:hover,.results button:focus{background:#FDEFF4;color:var(--rose-deep);outline:none}
+.results .none{padding:15px 18px;color:var(--gray);font-size:15px}
+.quick{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.quick button{border:1px solid var(--hair);background:var(--cream);color:var(--ink);padding:9px 15px;
+  border-radius:100px;cursor:pointer;font-family:"Karla",sans-serif;font-weight:500;font-size:14px}
+.quick button:hover,.quick button:focus{border-color:var(--rose);color:var(--rose-deep);outline:none}
+
+/* AP study */
+.courses{display:grid;grid-template-columns:1fr;gap:13px}
+.course{padding:0;overflow:hidden}
+.course > button{width:100%;text-align:left;border:0;background:none;cursor:pointer;padding:21px 22px;
+  font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:19px;color:var(--ink);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;line-height:1.25}
+.course > button::after{content:"+";font-family:"Karla",sans-serif;font-size:24px;color:var(--rose-deep);flex:0 0 auto}
+.course.open > button::after{content:"–"}
+.course .body{display:none;padding:0 22px 22px}
+.course.open .body{display:block}
+.course .body dt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:5px}
+.course .body dd{margin:0 0 16px;font-size:15.5px;line-height:1.55;color:var(--ink)}
+.course .body dd:last-child{margin-bottom:0}
+
+/* study tools */
+.toolhead{font-weight:600;font-size:24px;margin:0 0 6px;letter-spacing:-.02em}
+.toolsub{margin:0 0 20px;color:var(--gray);font-size:15.5px;line-height:1.55;max-width:58ch}
+.field textarea{width:100%;padding:15px 17px;border:2px solid var(--hair);border-radius:16px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:16px;
+  line-height:1.5;resize:vertical}
+.field textarea:focus{outline:none;border-color:var(--rose);background:#fff}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px}
+.btnrow .btn{padding:15px 26px;font-size:14.5px}
+.timerwrap{text-align:center;padding:14px 0 22px}
+.clock{font-family:"Fraunces",Georgia,serif;font-size:clamp(58px,17vw,86px);font-weight:700;
+  letter-spacing:-.04em;color:var(--rose-deep);line-height:1}
+.phase{margin:6px 0 0;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gray)}
+.phase.break{color:var(--rose)}
+#rounds{margin-top:16px}
+
+/* flashcard study mode */
+.deckbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:22px 0 14px}
+.deckbar .count{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--gray)}
+.flash{position:relative;border-radius:24px;border:1px solid #E5D8E8;cursor:pointer;
+  background:radial-gradient(78% 88% at 10% 6%, #F7DBE9 0%, transparent 58%),
+             radial-gradient(72% 82% at 94% 94%, #D9E8F4 0%, transparent 60%),
+             linear-gradient(150deg,#F3E6F0 0%,#EDE5F4 55%,#E7EAF4 100%);
+  min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:34px 26px;text-align:center;box-shadow:0 6px 22px rgba(158,78,112,.07)}
+.flash .side{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:12px}
+.flash .txt{font-family:"Fraunces",Georgia,serif;font-size:23px;font-weight:600;
+  line-height:1.35;color:var(--ink)}
+.flash .tap{position:absolute;bottom:14px;font-size:12.5px;color:var(--gray)}
+.bar{height:7px;border-radius:100px;background:#EFE3E9;overflow:hidden;margin:16px 0 14px}
+.bar i{display:block;height:100%;background:var(--rose-deep);border-radius:100px;
+  transition:width .35s ease}
+.done{padding:30px 24px;text-align:center}
+.done h4{font-family:"Fraunces",Georgia,serif;font-size:24px;font-weight:600;margin:0 0 8px;
+  color:var(--ink);letter-spacing:normal;text-transform:none}
+.done p{margin:0 0 18px;color:var(--gray)}
+
+/* review schedule */
+.sched{list-style:none;margin:20px 0 0;padding:0}
+.sched li{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--hair)}
+.sched li:last-child{border-bottom:0}
+.sched .when{flex:0 0 92px;font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;
+  letter-spacing:.06em;color:var(--rose-deep);padding-top:3px}
+.sched .what b{display:block;font-size:16px}
+.sched .what span{display:block;font-size:14px;color:var(--gray);margin-top:2px;line-height:1.45}
+
+/* never follow the device into dark mode — this page is light by design */
+@media (prefers-color-scheme: dark){
+  html,body{background:#FDF7F1;color:#3A2E38}
+  .card,.year,.panel,.tile,.hub-card,.course{background:rgba(255,255,255,.78);color:#3A2E38}
+  .field input,.field select,.field textarea,#search{background:#FDF7F1;color:#3A2E38}
+  .results{background:#fff}
+  .results button{color:#3A2E38}
+}
+
+/* schedule builder */
+.crow{padding:14px;border:1px solid var(--hair);border-radius:18px;
+  background:rgba(255,255,255,.6);margin-bottom:10px}
+.crow .top{display:flex;gap:8px;margin-bottom:8px}
+.crow .top input{flex:1;padding:12px 14px;border:2px solid var(--hair);border-radius:14px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:15.5px;min-width:0}
+.crow .top input:focus{outline:none;border-color:var(--rose);background:#fff}
+.crow .x{flex:0 0 auto;width:44px;border:1px solid var(--hair);border-radius:14px;
+  background:var(--cream);color:var(--rose-deep);font-size:20px;cursor:pointer;line-height:1}
+.crow .x:hover,.crow .x:focus{border-color:var(--rose);background:#fff;outline:none}
+.crow .sels{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.crow select{width:100%;padding:12px 12px;border:2px solid var(--hair);border-radius:14px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:15px}
+.crow select:focus{outline:none;border-color:var(--rose);background:#fff}
+.gpaline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:12px 0;border-bottom:1px solid rgba(158,78,112,.16)}
+.gpaline:last-child{border-bottom:0}
+.gpaline span{font-size:15.5px;color:var(--gray)}
+.gpaline b{font-family:"Fraunces",Georgia,serif;font-size:24px;font-weight:700;color:var(--ink)}
+.gpaline.hi b{color:var(--rose-deep)}
+
+.result .subhead{font-family:"Fraunces",Georgia,serif;font-size:20px;font-weight:600;
+  color:var(--ink);margin:22px 0 4px;letter-spacing:normal;text-transform:none}
+.result .sched .what b{color:var(--ink)}
+.result .caveat{border-top:1px solid rgba(158,78,112,.2)}
+
+/* AI advisor chat */
+.chatlog{margin-top:20px}
+.chatlog:empty{margin-top:0}
+.msg{padding:16px 18px;border-radius:20px;margin-bottom:12px;font-size:16px;line-height:1.6;
+  max-width:88%;white-space:pre-wrap;word-wrap:break-word}
+.msg.you{margin-left:auto;background:var(--rose-deep);color:#FFF6FA;border-bottom-right-radius:7px}
+.msg.ai{background:radial-gradient(78% 88% at 10% 6%, #F7DBE9 0%, transparent 58%),
+  radial-gradient(72% 82% at 94% 94%, #D9E8F4 0%, transparent 60%),
+  linear-gradient(150deg,#F3E6F0 0%,#EDE5F4 55%,#E7EAF4 100%);
+  border:1px solid #E5D8E8;color:var(--ink);border-bottom-left-radius:7px}
+.msg.err{background:#FBE4EA;border:1px solid #EFC4D2;color:var(--ink);max-width:100%}
+.msg.err b{display:block;color:var(--rose-deep);margin-bottom:4px}
+.msg .who{display:block;font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;opacity:.72;margin-bottom:7px}
+.msg.think{color:var(--gray);font-style:italic}
+.chatbox{display:flex;gap:9px;margin-top:6px}
+.chatbox input{flex:1;min-width:0;padding:15px 17px;border:2px solid var(--hair);border-radius:100px;
+  background:var(--cream);color:var(--ink);font-family:"Karla",sans-serif;font-size:16px}
+.chatbox input:focus{outline:none;border-color:var(--rose);background:#fff}
+.chatbox .btn{flex:0 0 auto;padding:15px 24px;font-size:14px}
+
+.keybox{margin-top:18px;padding:20px 19px;border-radius:20px;border:1px solid #EFD6DF;
+  background:rgba(255,255,255,.7)}
+.keybox p{margin:0;font-size:15px;color:var(--gray);line-height:1.5}
+.keybox .keyhead{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:8px}
+
+footer{margin-top:48px;border-top:1px solid var(--hair);padding:28px 0 56px}
+footer p{margin:0 0 10px;font-size:14.5px;color:var(--gray);max-width:64ch}
+footer .sig{margin-top:20px;font-family:"Fraunces",Georgia,serif;font-size:17px;
+  color:var(--rose-deep);font-style:italic}
+.hidden{display:none}
+
+@media (min-width:760px){
+  .hero{padding:76px 0 88px}
+  .cta-row{flex-direction:row;align-items:center}
+  .hub{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .panels{grid-template-columns:1fr 1fr}
+  .truth{grid-column:1/-1}
+  .panel.wide ul{grid-template-columns:1fr 1fr;gap:14px 26px}
+  .two{grid-template-columns:1fr 1fr}
+  .courses{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{transition:none;opacity:1;transform:none;filter:none}
+  .twinkle{animation:none}
+  .btn:hover,.hub-card:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="16.5" fill="none" stroke="#C97B96" stroke-width="2.4" stroke-dasharray="70 30" stroke-linecap="round" transform="rotate(132 20 20)"/>
+      <path d="M20 7c1.1 8.6 4.3 11.8 12.9 12.9C24.3 21.1 21.1 24.3 20 33c-1.1-8.7-4.3-11.9-12.9-13C15.7 18.8 18.9 15.6 20 7z" fill="#9E4E70"/>
+    </svg>
+    <div class="navlinks" id="navlinks">
+      <button type="button" data-go="home">Home</button>
+      <button type="button" data-go="pinkprint">Pinkprint</button>
+      <button type="button" data-go="transcript">Transcript</button>
+      <button type="button" data-go="tests">SAT &amp; ACT</button>
+      <button type="button" data-go="gpa">GPA</button>
+      <button type="button" data-go="study">AP Study</button>
+      <button type="button" data-go="tools">Study Tools</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HOME ============ -->
+<section class="view on" id="v-home">
+  <header class="hero">
+    <div class="glow a"></div><div class="glow b"></div>
+    <svg class="twinkle t1" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z" fill="#D98FAE"/></svg>
+    <svg class="twinkle t2" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z" fill="#B79BDB"/></svg>
+    <svg class="twinkle t3" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z" fill="#E8B4C8"/></svg>
+    <svg class="twinkle t4" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z" fill="#C97B96"/></svg>
+    <svg class="twinkle t5" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5C16.9 12.7 12.7 16.9 12 22.5 11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5z" fill="#A9C4D9"/></svg>
+    <div class="wrap">
+      <svg class="bigmark reveal" width="70" height="70" viewBox="0 0 40 40" aria-label="MindMuse">
+        <circle cx="20" cy="20" r="16.5" fill="none" stroke="#C97B96" stroke-width="2.4" stroke-dasharray="70 30" stroke-linecap="round" transform="rotate(132 20 20)"/>
+        <path d="M20 7c1.1 8.6 4.3 11.8 12.9 12.9C24.3 21.1 21.1 24.3 20 33c-1.1-8.7-4.3-11.9-12.9-13C15.7 18.8 18.9 15.6 20 7z" fill="#9E4E70"/>
+      </svg>
+      <p class="eyebrow reveal" style="--d:.08s">Four years, on purpose</p>
+      <h1 class="reveal" style="--d:.18s">Start with the <span>job.</span></h1>
+      <p class="sub reveal" style="--d:.30s">Four tools that work off one plan: the classes that lead to your career, the schools that teach it, the tests that gate it, and the grades that carry it.</p>
+      <div class="cta-row reveal" style="--d:.42s">
+        <button class="btn btn-primary" type="button" data-go="pinkprint">Build my pinkprint</button>
+        <button class="btn btn-ghost" type="button" data-go="tests">Check my scores</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hub">
+      <button class="hub-card reveal" type="button" data-go="pinkprint">
+        <span class="tag">Start here</span>
+        <h3>Your pinkprint</h3>
+        <p>Pick from 26 careers and get the four-year course map, the APs that actually matter, the colleges known for it, and what the job pays.</p>
+      </button>
+      <button class="hub-card reveal" style="--d:.1s" type="button" data-go="transcript">
+        <span class="tag">Where you stand</span>
+        <h3>Transcript review</h3>
+        <p>Paste your transcript, pick your goal, and see exactly which classes your path calls for that you haven't taken yet.</p>
+      </button>
+      <button class="hub-card reveal" style="--d:.2s" type="button" data-go="tests">
+        <span class="tag">Testing</span>
+        <h3>SAT &amp; ACT</h3>
+        <p>Enter your score and your target. Get the honest read on the gap and a study plan sized to it, not a generic one.</p>
+      </button>
+      <button class="hub-card reveal" style="--d:.2s" type="button" data-go="gpa">
+        <span class="tag">Grades</span>
+        <h3>GPA boost</h3>
+        <p>Find out exactly what you need to earn from here to hit your target — including when the math says to change the target.</p>
+      </button>
+      <button class="hub-card reveal" style="--d:.3s" type="button" data-go="study">
+        <span class="tag">Exams</span>
+        <h3>AP study guide</h3>
+        <p>How to study for each AP exam, what it actually tests, when to start, and the mistake that costs students the most points.</p>
+      </button>
+      <button class="hub-card reveal" style="--d:.4s" type="button" data-go="tools">
+        <span class="tag">Tools</span>
+        <h3>Study tools</h3>
+        <p>Make flashcards from your notes in seconds, run focused study sessions, and get a spaced review schedule built backward from your exam date.</p>
+      </button>
+    </div>
+    <footer class="reveal">
+      <p>MindMuse is a planning tool, not an admissions office. Course offerings, credit policies, and score requirements vary by school — verify anything that matters against College Board, the college itself, and your counselor.</p>
+      <p class="sig">MindMuse &mdash; Four years, on purpose.</p>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ PINKPRINT ============ -->
+<section class="view" id="v-pinkprint">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Career to course map</p>
+      <h2>Your pinkprint</h2>
+      <p class="lede">Tell us what you want to be. We'll work backward to the four years that get you there.</p>
+      <div class="card">
+        <div class="picker">
+          <label for="search" id="searchLabel">Search careers</label>
+          <input id="search" type="text" autocomplete="off" placeholder="surgeon, engineer, lawyer&hellip;"
+                 role="combobox" aria-expanded="false" aria-controls="results">
+          <div class="results" id="results" role="listbox"></div>
+        </div>
+        <div class="quick" id="quick"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="hidden" id="planHead">
+        <p class="eyebrow">Course map</p>
+        <h2 id="planTitle"></h2>
+        <p class="lede" id="planTagline"></p>
+      </div>
+      <div class="grid" id="grid">
+        <div class="empty">
+          <strong>Pick a career and your pinkprint fills in.</strong>
+          The starred courses are the AP classes that actually matter for that path.
+        </div>
+      </div>
+    </div>
+
+    <div class="panels hidden" id="panels">
+      <div class="panel"><h4>What the credit is really worth</h4><ul id="creditList"></ul></div>
+      <div class="panel"><h4>Majors this opens up</h4><ul id="majorList"></ul></div>
+      <div class="panel wide"><h4>Where to study it</h4><ul id="collegeList"></ul>
+        <p class="caveat" id="collegeNote"></p></div>
+      <div class="panel wide"><h4>What it pays</h4>
+        <span class="paynum" id="payRange"></span>
+        <p class="caveat" id="payNote"></p></div>
+      <div class="panel truth wide"><h4>The part nobody tells you</h4><p id="truthText"></p></div>
+    </div>
+
+    <footer>
+      <p>Course maps are a starting point, not a prescription. Every high school offers a different slice of the AP catalog, and every college sets its own credit policy.</p>
+      <p class="sig">MindMuse &mdash; Four years, on purpose.</p>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ TESTS ============ -->
+<section class="view" id="v-tests">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Testing</p>
+      <h2>SAT &amp; ACT</h2>
+      <p class="lede">Enter where you are and where you want to be. The plan you get is sized to the actual gap — a 30-point jump and a 300-point jump are completely different projects.</p>
+
+      <div class="card">
+        <div class="seg" id="testSeg">
+          <button type="button" data-t="sat" class="on">SAT</button>
+          <button type="button" data-t="act">ACT</button>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="curScore">Your most recent score</label>
+            <input id="curScore" type="number" inputmode="numeric" placeholder="1120">
+            <p class="hint" id="curHint">Total score, 400&ndash;1600. Practice test counts.</p>
+          </div>
+          <div class="field">
+            <label for="tgtScore">Your target score</label>
+            <input id="tgtScore" type="number" inputmode="numeric" placeholder="1350">
+            <p class="hint">Look up the middle 50% range for schools on your list.</p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="testDate">Months until your test date</label>
+          <input id="testDate" type="number" inputmode="numeric" placeholder="6">
+          <p class="hint">Leave blank if you haven't picked one yet.</p>
+        </div>
+        <button class="btn btn-primary" id="testGo" type="button">Read my gap</button>
+        <div id="testOut"></div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel"><h4>What's actually on it</h4>
+        <ul>
+          <li><b>SAT</b><span class="why">Digital and adaptive since 2024. Two sections — Reading &amp; Writing, and Math — scored 200&ndash;800 each. Shorter passages than the old paper test.</span></li>
+          <li><b>ACT</b><span class="why">English, Math, Reading, Science, each scored 1&ndash;36 and averaged. Faster paced. Students who read quickly often prefer it.</span></li>
+          <li><b>Take both once</b><span class="why">Sit a free practice version of each before committing. Most students score meaningfully better on one, and there's no way to predict which.</span></li>
+        </ul>
+      </div>
+      <div class="panel"><h4>Free prep that actually works</h4>
+        <ul>
+          <li><b>Official practice tests</b><span class="why">College Board's Bluebook app and ACT's official materials. Real retired questions beat any third-party imitation.</span></li>
+          <li><b>Khan Academy</b><span class="why">Free, official College Board partner, and it adapts to your practice test results.</span></li>
+          <li><b>Your error log</b><span class="why">The highest-leverage free tool there is. Write down every miss and why. Patterns show up within two tests.</span></li>
+        </ul>
+      </div>
+      <div class="panel truth wide"><h4>The part nobody tells you</h4>
+        <p>Test-optional is now the norm at a large share of colleges, and at many of them a strong GPA with no score submitted beats a mediocre score submitted. Before you spend six months on a 60-point gain, check whether the schools on your list even require it — and if they don't, whether your score is above or below their published middle range. Below it, sending nothing is often the stronger application.</p>
+      </div>
+    </div>
+    <footer><p class="sig">MindMuse &mdash; Four years, on purpose.</p></footer>
+  </div>
+</section>
+
+<!-- ============ GPA ============ -->
+<section class="view" id="v-gpa">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Grades</p>
+      <h2>GPA boost</h2>
+      <p class="lede">Work out what you need to earn from here to hit your target — and find out early if the math has already closed the door, while there's still time to aim somewhere better.</p>
+
+      <div class="card">
+        <div class="two">
+          <div class="field">
+            <label for="curGpa">Current GPA</label>
+            <input id="curGpa" type="number" step="0.01" inputmode="decimal" placeholder="3.42">
+            <p class="hint">Use unweighted for a truer read.</p>
+          </div>
+          <div class="field">
+            <label for="tgtGpa">Target GPA</label>
+            <input id="tgtGpa" type="number" step="0.01" inputmode="decimal" placeholder="3.75">
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="doneSem">Semesters completed</label>
+            <input id="doneSem" type="number" inputmode="numeric" placeholder="4">
+            <p class="hint">Two per school year. End of sophomore year is 4.</p>
+          </div>
+          <div class="field">
+            <label for="leftSem">Semesters remaining</label>
+            <input id="leftSem" type="number" inputmode="numeric" placeholder="4">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="gpaGo" type="button">Run the numbers</button>
+        <div id="gpaOut"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="card">
+        <h3 class="toolhead">Plan your schedule</h3>
+        <p class="toolsub">List the classes you're taking, mark the level, and set the grade you're aiming for. You'll see what the semester does to your GPA — and the highest number this schedule can possibly produce.</p>
+
+        <div class="field">
+          <label>Your school's weighting</label>
+          <div class="seg" id="scaleSeg">
+            <button type="button" data-s="std" class="on">Honors +0.5, AP +1.0</button>
+            <button type="button" data-s="flat">Honors +1.0, AP +1.0</button>
+          </div>
+          <p class="hint">The most common scales, but districts differ. Check your handbook if the number looks off.</p>
+        </div>
+
+        <div id="courseRows"></div>
+        <div class="btnrow">
+          <button class="btn btn-ghost" id="addCourse" type="button">Add a class</button>
+        </div>
+        <div id="schedOut"></div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel"><h4>What moves a GPA</h4>
+        <ul>
+          <li><b>Earlier is worth more</b><span class="why">A freshman semester changes your average far more than a senior one, because each new semester is a smaller share of the total.</span></li>
+          <li><b>Grade replacement</b><span class="why">Many schools let you retake a failed or low course and replace the grade. Ask your counselor — it's rarely advertised.</span></li>
+          <li><b>Weighted vs unweighted</b><span class="why">Most colleges recalculate your GPA their own way, usually stripping weights. Chasing weighted points by overloading on APs can backfire.</span></li>
+        </ul>
+      </div>
+      <div class="panel"><h4>Before you overload</h4>
+        <ul>
+          <li><b>Trajectory counts</b><span class="why">Admissions readers look at the shape of your transcript. A rising line from sophomore to senior year reads well even if the average is modest.</span></li>
+          <li><b>Course rigor is judged in context</b><span class="why">You're compared against what your school offers, not a national list. Four APs at a school offering six is stronger than four at a school offering thirty.</span></li>
+          <li><b>One extra AP can cost two grades</b><span class="why">Stacking a fifth AP that drops two B's into C's is a net loss on every measure.</span></li>
+        </ul>
+      </div>
+      <div class="panel truth wide"><h4>The part nobody tells you</h4>
+        <p>If the calculator tells you your target is out of reach, that is useful information and not a verdict on you. Community college transfer pathways send thousands of students into flagship universities every year with the same degree at the end and a fraction of the debt. Several states guarantee admission to their flagship for transfer students who hit a GPA threshold. Knowing this as a junior lets you plan a route instead of grieving one.</p>
+      </div>
+    </div>
+    <footer><p class="sig">MindMuse &mdash; Four years, on purpose.</p></footer>
+  </div>
+</section>
+
+<!-- ============ AP STUDY ============ -->
+<section class="view" id="v-study">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Exams</p>
+      <h2>AP study guide</h2>
+      <p class="lede">Studying for AP Chem is nothing like studying for AP Lit. Here's what each exam actually rewards, when to start, and the mistake that costs the most points.</p>
+      <div class="courses" id="courses"></div>
+    </div>
+    <footer>
+      <p>Exam formats change. Check College Board's course pages for the current format and this year's exam dates before you build a schedule around any of this.</p>
+      <p class="sig">MindMuse &mdash; Four years, on purpose.</p>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ STUDY TOOLS ============ -->
+<section class="view" id="v-tools">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Tools</p>
+      <h2>Study tools</h2>
+      <p class="lede">Three things worth having before you go looking for an app. Everything here runs in your browser and nothing leaves your phone.</p>
+
+      <div class="card">
+        <h3 class="toolhead">Flashcard maker</h3>
+        <p class="toolsub">Paste your notes with a dash, colon, or tab between the term and the definition — one card per line. A whole unit becomes a deck in about ten seconds.</p>
+        <div class="field">
+          <label for="deckPaste">Your notes</label>
+          <textarea id="deckPaste" rows="6" placeholder="mitochondria - the site of cellular respiration&#10;osmosis: diffusion of water across a membrane&#10;enzyme - a protein that speeds up a reaction"></textarea>
+          <p class="hint">Blank lines are ignored. The first separator on each line is the split point.</p>
+        </div>
+        <div class="btnrow">
+          <button class="btn btn-primary" id="deckBuild" type="button">Make my deck</button>
+          <button class="btn btn-ghost" id="deckDemo" type="button">Try a sample</button>
+        </div>
+        <div id="deckOut"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="card">
+        <h3 class="toolhead">Study timer</h3>
+        <p class="toolsub">Twenty-five minutes of work, five minutes off. The point isn't the number — it's that a running clock makes starting easier than deciding to start.</p>
+        <div class="timerwrap">
+          <div class="clock" id="clock">25:00</div>
+          <p class="phase" id="phase">Focus block</p>
+        </div>
+        <div class="btnrow">
+          <button class="btn btn-primary" id="timerGo" type="button">Start</button>
+          <button class="btn btn-ghost" id="timerReset" type="button">Reset</button>
+        </div>
+        <p class="hint" id="rounds">No rounds finished yet.</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="card">
+        <h3 class="toolhead">Spaced review planner</h3>
+        <p class="toolsub">Give it your exam date and it works backward into review sessions at widening intervals. Reviewing five times across two months beats reviewing five times in one week, and it isn't close.</p>
+        <div class="two">
+          <div class="field">
+            <label for="examDate">Exam date</label>
+            <input id="examDate" type="date">
+          </div>
+          <div class="field">
+            <label for="examName">What for</label>
+            <input id="examName" type="text" placeholder="AP Biology">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="planGo" type="button">Build my schedule</button>
+        <div id="planOut"></div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel truth wide"><h4>The part nobody tells you</h4>
+        <p>Rereading notes and highlighting feel productive and are close to useless, because recognizing something is not the same as being able to retrieve it. The two techniques with the strongest evidence behind them are testing yourself and spacing that testing out over time, which is exactly what a flashcard deck plus a review schedule does. If you only change one thing about how you study, close the book and try to write down what was on the page. The discomfort of that is the learning.</p>
+      </div>
+    </div>
+    <footer><p class="sig">MindMuse &mdash; Four years, on purpose.</p></footer>
+  </div>
+</section>
+
+<!-- ============ TRANSCRIPT ============ -->
+<section class="view" id="v-transcript">
+  <div class="wrap">
+    <div class="sec">
+      <p class="eyebrow">Where you stand</p>
+      <h2>Transcript review</h2>
+      <p class="lede">Paste what you've taken so far and pick where you're headed. You'll get your GPA, a read on your course rigor, and the specific classes your goal calls for that you haven't taken yet.</p>
+
+      <div class="card">
+        <div class="field">
+          <label for="tsPaste">Your transcript</label>
+          <textarea id="tsPaste" rows="9" placeholder="Grade 9&#10;Biology  A&#10;English 9  B+&#10;Geometry  A-&#10;&#10;Grade 10&#10;AP Chemistry  B&#10;Algebra II  A&#10;AP World History  B+"></textarea>
+          <p class="hint">One class per line with its grade at the end. Letter grades or numbers both work. Add a line saying "Grade 9" or "Sophomore" to separate years and you'll also get a trajectory read.</p>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label for="tsGoal">What you're aiming for</label>
+            <select id="tsGoal"></select>
+          </div>
+          <div class="field">
+            <label for="tsYear">What grade you're in now</label>
+            <select id="tsYear">
+              <option value="9">9th &mdash; freshman</option>
+              <option value="10" selected>10th &mdash; sophomore</option>
+              <option value="11">11th &mdash; junior</option>
+              <option value="12">12th &mdash; senior</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn btn-primary" id="tsGo" type="button">Review my transcript</button>
+          <button class="btn btn-ghost" id="tsDemo" type="button">Try a sample</button>
+        </div>
+        <p class="hint" style="margin-top:14px">Nothing you paste leaves your phone. There's no account and no server — the whole review runs in your browser.</p>
+        <div id="tsOut"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="card">
+        <h3 class="toolhead">Ask the advisor</h3>
+        <p class="toolsub">The review above is math and pattern-matching. This sends what you entered to an AI advisor that reads it properly and answers follow-up questions.</p>
+        <p class="hint" style="margin:-8px 0 18px">Unlike the rest of this page, this part sends your text to an outside AI service to get an answer. Leave out your full name, student ID, and school name — the advice is the same without them.</p>
+        <div class="btnrow">
+          <button class="btn btn-primary" id="aiGo" type="button">Analyze my transcript</button>
+        </div>
+
+        <div id="keyBox" class="keybox hidden">
+          <p class="keyhead">Direct mode</p>
+          <p>No advisor function found on this site, so this page can talk to Google directly instead. Paste a Gemini API key and it'll work for as long as this tab stays open.</p>
+          <div class="chatbox" style="margin-top:12px">
+            <input id="keyInput" type="password" placeholder="Paste your Gemini key" autocomplete="off">
+            <button class="btn btn-primary" id="keySave" type="button">Use it</button>
+          </div>
+          <p class="hint" style="margin-top:10px">The key is held in memory only — never saved to the page, never uploaded anywhere, and gone when you close the tab. Get one free at aistudio.google.com/apikey. Anyone else visiting your site would need to paste their own.</p>
+        </div>
+        <div id="chatLog" class="chatlog"></div>
+        <div id="chatBox" class="chatbox hidden">
+          <input id="chatInput" type="text" placeholder="Ask a follow-up&hellip;" autocomplete="off">
+          <button class="btn btn-primary" id="chatSend" type="button">Send</button>
+        </div>
+      </div>
+    </div>
+    <footer><p class="sig">MindMuse &mdash; Four years, on purpose.</p></footer>
+  </div>
+</section>
+
+<script>
+const CAREERS = [
+  {
+    id:"surgeon", name:"Surgeon", aka:"doctor physician medicine md pre-med premed trauma",
+    tagline:"Pre-med is a course list, not a major. These four years are about being ready for a brutal college science sequence.",
+    years:{
+      9:[{n:"Biology",ap:false},{n:"Geometry or Algebra II",ap:false},{n:"English 9",ap:false},{n:"World language I",ap:false}],
+      10:[{n:"AP Chemistry",ap:true,note:"The single best predictor of surviving college orgo."},{n:"Algebra II or Precalculus",ap:false},{n:"AP World History",ap:true},{n:"World language II",ap:false}],
+      11:[{n:"AP Biology",ap:true},{n:"AP Precalculus or Calculus AB",ap:true},{n:"AP English Language",ap:true},{n:"AP Psychology",ap:true,note:"Shows up on the MCAT more than people expect."}],
+      12:[{n:"AP Calculus AB/BC",ap:true},{n:"AP Statistics",ap:true,note:"Used constantly in clinical research."},{n:"AP Physics 1",ap:true},{n:"Anatomy or health science elective",ap:false}]
+    },
+    credit:[
+      {b:"AP Chemistry",t:"often places you out of gen chem — but most med schools want the prereq taken at college, so plan to retake it anyway."},
+      {b:"AP Biology",t:"same story. Great preparation, rarely a shortcut."},
+      {b:"AP Calculus",t:"usually real, usable credit. Frees a slot for a research course."},
+      {b:"AP Statistics",t:"frequently satisfies the stats requirement outright."}
+    ],
+    majors:["Biology / Molecular biology","Biochemistry","Neuroscience","Public health","Anything, honestly — med schools care about the prereqs, not the major"],
+    colleges:[{s:"Johns Hopkins",w:"Unmatched hospital access for undergrad shadowing and research."},{s:"WashU in St. Louis",w:"Famous pre-med advising, with a med school on the same campus."},{s:"UNC Chapel Hill",w:"Top-tier research at in-state tuition. One of the best deals anywhere."},{s:"University of Michigan",w:"Huge medical center, thousands of undergrad research slots."}],
+    collegeNote:"Med schools weigh your GPA and MCAT far more than where you earned them. The smartest play is often a strong state flagship where you can earn a 3.9 without drowning in debt, since you'll need that money for four more years of school.",
+    pay:{range:"$250k\u2013$400k+",note:"Median for surgeons runs above $300k, but training is 11\u201315 years after high school and most finish residency with large debt. The pay is real; so is the runway."},
+    truth:"AP Bio and AP Chem will probably not count toward med school prerequisites, even if your college hands you the credit. Take them because they make freshman year survivable, not because they let you skip it. And your GPA in college organic chemistry will matter more than every AP score combined."
+  },
+  {
+    id:"swe", name:"Software engineer", aka:"programmer coder developer software computer science tech",
+    tagline:"The degree is math-heavy in ways the job isn't. Load up on calculus, and write code outside of class.",
+    years:{
+      9:[{n:"AP Computer Science Principles",ap:true,note:"Gentler entry point than CSA."},{n:"Geometry or Algebra II",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false}],
+      10:[{n:"AP Computer Science A",ap:true,note:"Java. This is the one that maps to a real CS1 course."},{n:"Algebra II / AP Precalculus",ap:true},{n:"AP World History",ap:true},{n:"Chemistry",ap:false}],
+      11:[{n:"AP Calculus AB",ap:true},{n:"AP Physics 1",ap:true},{n:"AP English Language",ap:true},{n:"AP Statistics",ap:true,note:"Load-bearing for anything ML-adjacent."}],
+      12:[{n:"AP Calculus BC",ap:true,note:"Covers two semesters of college calc at most schools."},{n:"AP Physics C: Mechanics",ap:true},{n:"AP English Literature",ap:true},{n:"Independent project or internship",ap:false}]
+    },
+    credit:[
+      {b:"AP Calculus BC",t:"the highest-value AP on this list. Commonly worth Calc I and II."},
+      {b:"AP CSA",t:"places you out of intro CS at many schools — think hard before skipping it, the curve is real."},
+      {b:"AP Physics C",t:"required for CS majors housed in engineering colleges."},
+      {b:"AP CSP",t:"rarely counts for CS majors. Take it as an on-ramp, not for credit."}
+    ],
+    majors:["Computer science","Computer engineering","Data science","Math","Information systems"],
+    colleges:[{s:"Carnegie Mellon",w:"The deepest CS program in the country, and it isn't close."},{s:"UC Berkeley",w:"Walking distance from the companies hiring you."},{s:"Georgia Tech",w:"The same recruiters as the Ivies at a fraction of the price."},{s:"UIUC",w:"Enormous alumni pipeline into every major tech company."}],
+    collegeNote:"Georgia Tech and UIUC place graduates into the same companies as MIT and Stanford. Recruiters here screen on your projects, your internships, and whether you can pass the interview. The school name opens the first door and stops mattering after that.",
+    pay:{range:"$110k\u2013$160k",note:"BLS median for software developers is around $133k, higher in the Bay Area and Seattle. Entry-level hiring has tightened since 2022 \u2014 internships matter more than they used to."},
+    truth:"No admissions officer or hiring manager will ever ask about your AP CSA score. What moves the needle is having built something — a real project on GitHub, a game people played, a tool your school actually uses. The APs get you through the door of the major; the projects get you the internship."
+  },
+  {
+    id:"lawyer", name:"Lawyer", aka:"attorney law pre-law legal judge prosecutor",
+    tagline:"There's no pre-law major and no required APs. What law school wants is a killer GPA and the ability to read hard things fast.",
+    years:{
+      9:[{n:"English 9 (honors)",ap:false},{n:"Geometry",ap:false},{n:"Biology",ap:false},{n:"Debate or speech",ap:false,note:"Start here. It compounds."}],
+      10:[{n:"AP World History",ap:true},{n:"AP Seminar",ap:true,note:"Argument construction, taught explicitly."},{n:"Algebra II",ap:false},{n:"World language II",ap:false}],
+      11:[{n:"AP U.S. History",ap:true},{n:"AP English Language",ap:true,note:"Rhetoric. The most directly relevant AP there is."},{n:"AP U.S. Government",ap:true},{n:"AP Statistics",ap:true}],
+      12:[{n:"AP English Literature",ap:true},{n:"AP Comparative Government",ap:true},{n:"AP Macroeconomics",ap:true,note:"Corporate and antitrust work runs on this."},{n:"AP Research",ap:true}]
+    },
+    credit:[
+      {b:"AP English Language",t:"usually clears freshman composition — genuinely useful."},
+      {b:"AP Gov / History",t:"often counts as general education credit, occasionally toward a poli-sci major."},
+      {b:"AP Capstone",t:"the diploma is rare enough that it stands out on applications."},
+      {b:"Everything else",t:"credit matters less here. Protect your GPA above all."}
+    ],
+    majors:["Political science","History","Philosophy","Economics","English","Anything with heavy writing and a high LSAT median"],
+    colleges:[{s:"Any school where you'll earn a 3.9",w:"Undergrad prestige barely moves law admissions."},{s:"Your state flagship",w:"Graduate debt-free so you can afford law school."},{s:"Strong philosophy or econ departments",w:"Those majors post the highest LSAT averages."},{s:"Anywhere with a mock trial team",w:"Real practice, and it signals genuine interest."}],
+    collegeNote:"This is the field where obsessing over undergrad rankings hurts you most. Admissions runs on GPA and LSAT. A less competitive school where you finish near the top, with no loans, is a straightforwardly better position than a name-brand degree and a 3.4.",
+    pay:{range:"$70k\u2013$225k",note:"Median around $145k, but the distribution is bimodal: large-firm first-years start near $225k, public interest and small-firm work often starts under $70k. Very few land in the middle."},
+    truth:"Law school admissions is close to a two-number formula: GPA and LSAT. That means a challenging-but-manageable schedule where you earn A's beats an eight-AP year where you earn B's. Philosophy and economics majors post some of the highest LSAT averages, and neither requires a single AP to get into."
+  },
+  {
+    id:"mecheng", name:"Mechanical engineer", aka:"engineering engineer mechanical aerospace robotics",
+    tagline:"Engineering programs are the most prescriptive path here. Calculus and calculus-based physics are non-negotiable.",
+    years:{
+      9:[{n:"Algebra II (accelerate if you can)",ap:false},{n:"Physics or physical science",ap:false},{n:"English 9",ap:false},{n:"Intro engineering or shop",ap:false}],
+      10:[{n:"AP Precalculus",ap:true},{n:"AP Physics 1",ap:true},{n:"Chemistry",ap:false},{n:"CAD or drafting elective",ap:false}],
+      11:[{n:"AP Calculus AB",ap:true},{n:"AP Physics 2 or AP Chemistry",ap:true},{n:"AP English Language",ap:true},{n:"Robotics team",ap:false,note:"FIRST Robotics is the resume line that matters."}],
+      12:[{n:"AP Calculus BC",ap:true},{n:"AP Physics C: Mechanics",ap:true,note:"The direct analogue of freshman engineering physics."},{n:"AP Physics C: E&M",ap:true},{n:"AP Computer Science A",ap:true,note:"Every engineer writes code now."}]
+    },
+    credit:[
+      {b:"AP Calculus BC",t:"two semesters of credit at most engineering schools. Huge."},
+      {b:"AP Physics C: Mech",t:"the one physics AP engineering colleges reliably accept."},
+      {b:"AP Physics 1 & 2",t:"algebra-based — often no credit for engineering majors. Take them as preparation."},
+      {b:"AP Chemistry",t:"clears the required chem sequence at many programs."}
+    ],
+    majors:["Mechanical engineering","Aerospace engineering","Civil engineering","Robotics","Engineering physics"],
+    colleges:[{s:"Purdue",w:"The co-op program. You graduate with a year of paid experience."},{s:"Georgia Tech",w:"Elite engineering at public school pricing."},{s:"Cal Poly SLO",w:"Learn-by-doing. You're in a machine shop from freshman year."},{s:"University of Michigan",w:"Deep auto and aerospace industry connections."}],
+    collegeNote:"Check one thing before anything else: ABET accreditation. Without it you may not be able to sit for your PE license. After that, co-op programs at Purdue, Northeastern, and Cincinnati matter more than ranking, because employers hire people who have already worked.",
+    pay:{range:"$80k\u2013$120k",note:"Median around $100k with a bachelor's, no graduate school required. One of the best pay-to-training ratios on this list."},
+    truth:"Getting Calc BC and Physics C done in high school doesn't mean you should place out of both freshman year. Students who skip straight to multivariable and thermo often struggle. The real benefit is arriving already fluent, taking the college version anyway, and getting the A."
+  },
+  {
+    id:"nurse", name:"Nurse", aka:"nursing bsn rn healthcare np crna",
+    tagline:"Direct-admit BSN programs are competitive and science-heavy. Anatomy and chemistry carry the most weight.",
+    years:{
+      9:[{n:"Biology",ap:false},{n:"Geometry",ap:false},{n:"English 9",ap:false},{n:"Health science intro",ap:false}],
+      10:[{n:"Chemistry",ap:false},{n:"Algebra II",ap:false},{n:"AP Psychology",ap:true,note:"Mental health is half of clinical practice."},{n:"CNA certification if offered",ap:false}],
+      11:[{n:"AP Biology",ap:true},{n:"AP Statistics",ap:true,note:"Evidence-based practice runs on stats."},{n:"AP English Language",ap:true},{n:"Anatomy & physiology",ap:false,note:"Take the dual-enrollment version if it exists."}],
+      12:[{n:"AP Chemistry",ap:true},{n:"AP Human Geography or sociology",ap:true},{n:"Medical terminology",ap:false},{n:"Clinical volunteering or hospital job",ap:false}]
+    },
+    credit:[
+      {b:"AP Statistics",t:"very commonly satisfies the required stats course. Real time saved."},
+      {b:"AP Psychology",t:"often clears intro psych, which most nursing programs require."},
+      {b:"AP Bio / Chemistry",t:"credit varies, and nursing schools frequently want A&P taken in college regardless."},
+      {b:"AP English Language",t:"clears composition and frees room in a packed BSN schedule."}
+    ],
+    majors:["Nursing (BSN)","Health sciences","Public health","Biology, if you're going the accelerated-BSN route later"],
+    colleges:[{s:"Penn Nursing",w:"Consistently the top-rated nursing school in the country."},{s:"Johns Hopkins",w:"Clinical placement inside a world-class hospital system."},{s:"University of Washington",w:"Strong direct-admit BSN and excellent NCLEX rates."},{s:"Villanova",w:"Direct admit with high retention through to graduation."}],
+    collegeNote:"Skip the rankings and check two numbers on every school's site: the NCLEX first-time pass rate, and whether it's a direct-admit BSN. Direct admit means you're in the nursing program from day one instead of competing for a spot sophomore year and possibly losing it.",
+    pay:{range:"$75k\u2013$105k",note:"RN median around $86k, higher in California and with specialization. Nurse practitioners and CRNAs earn substantially more with a master's or doctorate."},
+    truth:"Direct-admit BSN programs often care more about your unweighted GPA and any real clinical exposure than about AP count. A CNA certification and 200 hours in a hospital will do more for that application than a fourth AP science. Nursing school is where the credit actually gets hard to transfer, so don't count on skipping anything."
+  },
+  {
+    id:"architect", name:"Architect", aka:"architecture design building urban planning",
+    tagline:"The only path on this list where a portfolio is a hard requirement. Physics and studio art carry equal weight.",
+    years:{
+      9:[{n:"Geometry",ap:false,note:"More relevant to this field than to any other."},{n:"Art I / drawing",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false}],
+      10:[{n:"AP 2-D Art & Design",ap:true,note:"Builds the portfolio you'll be required to submit."},{n:"Algebra II",ap:false},{n:"Physics",ap:false},{n:"CAD or digital design",ap:false}],
+      11:[{n:"AP Physics 1",ap:true,note:"Statics and structures start here."},{n:"AP Precalculus",ap:true},{n:"AP Art History",ap:true,note:"Half of architecture school is this."},{n:"AP English Language",ap:true}],
+      12:[{n:"AP Calculus AB",ap:true},{n:"AP Drawing",ap:true},{n:"AP Environmental Science",ap:true,note:"Sustainable design is now the whole industry."},{n:"Portfolio development",ap:false}]
+    },
+    credit:[
+      {b:"AP Art History",t:"often clears required architectural history survey courses."},
+      {b:"AP 2-D Art & Design",t:"the process portfolio doubles as admissions portfolio material. Rare two-for-one."},
+      {b:"AP Calculus AB",t:"satisfies the math requirement for most B.Arch programs."},
+      {b:"AP Physics 1",t:"preparation for structures; credit is inconsistent."}
+    ],
+    majors:["Architecture (B.Arch, 5-year)","Architectural studies","Urban planning","Landscape architecture","Interior architecture"],
+    colleges:[{s:"Cornell",w:"The most consistently top-ranked B.Arch program."},{s:"Rice",w:"Small studios and unusually strong preceptorship placement."},{s:"Cal Poly SLO",w:"Hands-on, and heavily recruited by firms."},{s:"Virginia Tech",w:"Excellent B.Arch at public-school cost."}],
+    collegeNote:"You need a NAAB-accredited degree to become licensed. Decide early between a five-year B.Arch straight out of high school and a four-year pre-professional degree plus a two-year M.Arch. The B.Arch is faster and cheaper, but you commit at seventeen.",
+    pay:{range:"$70k\u2013$110k",note:"Median around $93k. Note the long ramp: licensure requires an accredited degree, roughly 3,700 documented hours, and six exams."},
+    truth:"A five-year B.Arch is a professional degree you apply to as a high school senior, and most programs require a portfolio. Start building it sophomore year — sketches, models, photographs, anything showing how you see space. Students who wait until senior fall are assembling a portfolio in six weeks and it shows."
+  },
+  {
+    id:"psych", name:"Psychologist", aka:"psychology therapist counselor clinical mental health",
+    tagline:"Statistics is the sleeper requirement. Clinical psychology is a research field before it's a helping one.",
+    years:{
+      9:[{n:"Biology",ap:false},{n:"Geometry",ap:false},{n:"English 9",ap:false},{n:"World language I",ap:false}],
+      10:[{n:"AP Psychology",ap:true},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Chemistry",ap:false}],
+      11:[{n:"AP Statistics",ap:true,note:"The most important course on this map."},{n:"AP Biology",ap:true,note:"Neuroscience is where the field is heading."},{n:"AP English Language",ap:true},{n:"Sociology",ap:false}],
+      12:[{n:"AP Research",ap:true,note:"Run a study. It's what grad school wants to see."},{n:"AP Calculus AB",ap:true},{n:"AP Seminar or philosophy",ap:true},{n:"Peer counseling or crisis line volunteering",ap:false}]
+    },
+    credit:[
+      {b:"AP Statistics",t:"clears the required stats course at most psych departments. Take it seriously."},
+      {b:"AP Psychology",t:"often gets you out of intro psych — which some advisors say is a mistake, since it's where you meet the faculty running labs."},
+      {b:"AP Biology",t:"useful for the biological-bases requirement in most psych majors."},
+      {b:"AP Research",t:"the closest thing high school offers to what a psych PhD application wants."}
+    ],
+    majors:["Psychology","Neuroscience","Cognitive science","Social work (for the clinical route)","Human development"],
+    colleges:[{s:"University of Michigan",w:"One of the largest psych research operations anywhere."},{s:"UCLA",w:"Strong clinical faculty, and undergrads do get into labs."},{s:"University of Minnesota",w:"A historic powerhouse in clinical psychology."},{s:"Vanderbilt",w:"Small enough that undergrads work directly with faculty."}],
+    collegeNote:"The only thing that matters for a funded PhD application is research experience. Pick the school where you'll actually get into a lab as a sophomore. At some large universities undergrads never touch research; at mid-size schools they end up as co-authors. Email the department and ask directly.",
+    pay:{range:"$60k\u2013$110k",note:"Clinical psychologist median around $92k. Master's-level therapists (LCSW, LMHC) typically earn less but reach practice in two years instead of seven."},
+    truth:"Becoming a licensed psychologist means a doctorate — five to seven years past your bachelor's, and funded clinical PhD programs admit single-digit percentages. Those programs select on research experience above almost everything. If the goal is therapy specifically, an LCSW or an LMHC master's is two years, and it's the path most working therapists actually took."
+  },
+  {
+    id:"finance", name:"Investment banker", aka:"finance business banking consulting private equity trading",
+    tagline:"Recruiting is brutally target-school driven, so this path is really about getting into a school that banks recruit from.",
+    years:{
+      9:[{n:"Algebra II or Geometry",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false},{n:"Speech or debate",ap:false}],
+      10:[{n:"AP Macroeconomics",ap:true},{n:"AP Precalculus",ap:true},{n:"AP World History",ap:true},{n:"Accounting if offered",ap:false}],
+      11:[{n:"AP Microeconomics",ap:true},{n:"AP Calculus AB",ap:true},{n:"AP Statistics",ap:true,note:"Quant roles screen on this."},{n:"AP English Language",ap:true}],
+      12:[{n:"AP Calculus BC",ap:true},{n:"AP Computer Science A",ap:true,note:"Python and Excel modeling are table stakes now."},{n:"AP U.S. Government",ap:true},{n:"DECA or investment club leadership",ap:false}]
+    },
+    credit:[
+      {b:"AP Micro + Macro",t:"together they frequently clear both intro econ courses. Efficient."},
+      {b:"AP Calculus BC",t:"required-level math for most finance and econ majors."},
+      {b:"AP Statistics",t:"real credit, and directly used in the job."},
+      {b:"AP CSA",t:"increasingly the differentiator between analysts."}
+    ],
+    majors:["Finance","Economics","Business administration","Accounting","Applied math or statistics for quant roles"],
+    colleges:[{s:"Penn (Wharton)",w:"The single strongest banking pipeline in existence."},{s:"NYU Stern",w:"In the city, which means networking all four years."},{s:"Michigan (Ross)",w:"The strongest public-school target."},{s:"UVA (McIntire)",w:"Punches far above its size in placement."}],
+    collegeNote:"This is the one career on this site where the school name genuinely gates access. Banks recruit from a short target list starting in your sophomore fall. If you're not at a target or semi-target, breaking in means networking relentlessly on your own. Possible, but know the terms before you pick.",
+    pay:{range:"$150k\u2013$200k first year",note:"Investment banking analysts start near $110k base plus a bonus that often matches it. That figure assumes 80\u2013100 hour weeks; the hourly rate is closer to a normal job than it looks."},
+    truth:"Investment banking recruits almost entirely from a short list of target schools, and it starts in your college sophomore fall. That makes college admissions the actual bottleneck — which means your APs matter here mostly as admissions signal. Also worth knowing before you commit: first-year analyst weeks routinely run 80 to 100 hours."
+  },
+  {
+    id:"teacher", name:"Teacher", aka:"teaching education professor school k-12",
+    tagline:"Your APs should follow the subject you want to teach, plus the two that every teacher uses.",
+    years:{
+      9:[{n:"English 9",ap:false},{n:"Geometry",ap:false},{n:"Biology",ap:false},{n:"Tutoring or peer mentoring",ap:false,note:"Start now — it's the experience that counts."}],
+      10:[{n:"AP Psychology",ap:true,note:"Child development is the core of teacher prep."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"World language II",ap:false}],
+      11:[{n:"AP English Language",ap:true},{n:"AP Statistics",ap:true,note:"Data-driven instruction is every district's language now."},{n:"Two APs in your intended subject",ap:true},{n:"Chemistry or physics",ap:false}],
+      12:[{n:"AP English Literature",ap:true},{n:"AP U.S. Government",ap:true},{n:"Advanced AP in your subject",ap:true},{n:"Teaching cadet or classroom aide program",ap:false}]
+    },
+    credit:[
+      {b:"AP Psychology",t:"usually clears the intro psych that education programs require."},
+      {b:"AP Statistics",t:"satisfies the stats requirement in most ed programs."},
+      {b:"Subject APs",t:"count toward your content-area major, which secondary licensure requires."},
+      {b:"General ed credit",t:"opens room for a dual major — the single best move for a future teacher."}
+    ],
+    majors:["Your subject + education minor (best for secondary)","Elementary education","Special education — the most in-demand credential in the country","Educational studies"],
+    colleges:[{s:"Vanderbilt (Peabody)",w:"The top-ranked education school in the country."},{s:"Michigan State",w:"Historically dominant in teacher preparation."},{s:"University of Wisconsin",w:"Strong prep with deep district partnerships."},{s:"Your in-state public",w:"Licensure is state-specific. This is the practical answer."}],
+    collegeNote:"Teaching licenses are issued by states, and moving one across state lines is a paperwork ordeal. Going to school in the state where you want to teach is worth more than any ranking, and your student teaching placement often turns into your first job offer.",
+    pay:{range:"$50k\u2013$80k",note:"High school teacher median around $65k, varying enormously by district and state. Pay scales are public \u2014 look up the district you want before you commit."},
+    truth:"For middle and high school, you generally major in the subject and add licensure, not the other way around. Special education and bilingual certification are chronically short-staffed almost everywhere, which translates into real hiring leverage and stipends. And if the eventual goal is professor, that's a PhD, and the academic job market is genuinely rough — worth knowing at fifteen rather than at twenty-five."
+  },
+  {
+    id:"journalist", name:"Journalist", aka:"journalism reporter writer news media editor",
+    tagline:"Nobody will ask about your APs. They'll ask for clips. Build the clips starting freshman year.",
+    years:{
+      9:[{n:"English 9 (honors)",ap:false},{n:"School newspaper — join now",ap:false,note:"Four years of bylines beats any AP."},{n:"Biology",ap:false},{n:"World language I",ap:false}],
+      10:[{n:"AP World History",ap:true},{n:"AP Seminar",ap:true,note:"Research and source evaluation, formalized."},{n:"Algebra II",ap:false},{n:"Photography or video production",ap:false}],
+      11:[{n:"AP English Language",ap:true,note:"The most on-the-nose AP for this field."},{n:"AP U.S. Government",ap:true},{n:"AP Statistics",ap:true,note:"Data journalism is where the jobs are."},{n:"Newspaper editor role",ap:false}],
+      12:[{n:"AP English Literature",ap:true},{n:"AP Comparative Government",ap:true},{n:"AP Computer Science Principles",ap:true,note:"Scraping and visualization skills separate candidates."},{n:"Local paper internship or freelance",ap:false}]
+    },
+    credit:[
+      {b:"AP English Language",t:"clears composition, which frees a slot for a journalism course freshman year."},
+      {b:"AP Statistics",t:"required for most data journalism tracks, and genuinely used."},
+      {b:"AP Gov",t:"counts as gen ed and gives you the vocabulary for a politics beat."},
+      {b:"AP CSP",t:"low credit value, high practical value for digital newsrooms."}
+    ],
+    majors:["Journalism","Communications","Political science","English","Economics — the best-paid beats are business beats"],
+    colleges:[{s:"Northwestern (Medill)",w:"The most recognized name in journalism education."},{s:"University of Missouri",w:"The Missouri Method. You work in a real newsroom."},{s:"Syracuse (Newhouse)",w:"Enormous and extremely loyal alumni network."},{s:"University of Maryland",w:"Twenty minutes from Washington. Internships all four years."}],
+    collegeNote:"Proximity to a real media market beats ranking, because this is an internship-driven field and you want to be somewhere you can work during the semester. Also consider majoring in something else entirely, like economics or science, and writing the whole time. Beat expertise is what's scarce.",
+    pay:{range:"$45k\u2013$75k",note:"Reporter median around $57k, and newsroom employment has fallen sharply over two decades. The people earning more have a specialized beat or data skills."},
+    truth:"This is the field where the portfolio most completely outweighs the transcript. An editor hiring you will read three clips and skip your GPA. Write for the school paper, pitch the local weekly, start a newsletter that people outside your family read. Also be clear-eyed: newsroom employment has fallen sharply over two decades, and the people finding work tend to have a second skill — data, video, or a specialized beat."
+  },
+  {
+    id:"vet", name:"Veterinarian", aka:"vet veterinary animals dvm zoology",
+    tagline:"Harder to get into than med school by acceptance rate, and hours with animals are a formal requirement.",
+    years:{
+      9:[{n:"Biology",ap:false},{n:"Geometry",ap:false},{n:"English 9",ap:false},{n:"Start logging shelter or clinic hours",ap:false,note:"Vet schools require documented hours."}],
+      10:[{n:"AP Chemistry",ap:true},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Agriculture or animal science if offered",ap:false}],
+      11:[{n:"AP Biology",ap:true},{n:"AP Precalculus or Calculus AB",ap:true},{n:"AP English Language",ap:true},{n:"AP Statistics",ap:true}],
+      12:[{n:"AP Physics 1",ap:true,note:"A prereq at nearly every vet school."},{n:"AP Environmental Science",ap:true},{n:"Organic chem or advanced bio elective",ap:false},{n:"Veterinary clinic internship",ap:false}]
+    },
+    credit:[
+      {b:"AP Statistics",t:"commonly accepted for the vet school stats prereq. One of the few that transfers cleanly."},
+      {b:"AP Bio / Chemistry",t:"most vet schools want these prereqs taken at college. Preparation, not shortcut."},
+      {b:"AP Calculus",t:"usually satisfies the math requirement outright."},
+      {b:"AP Physics 1",t:"credit varies; the prereq itself is near-universal."}
+    ],
+    majors:["Animal science","Biology","Biochemistry","Zoology","Any major, as long as the prereqs are done"],
+    colleges:[{s:"Cornell",w:"Top-ranked vet school, and undergrads get animal handling hours."},{s:"UC Davis",w:"Arguably the best veterinary campus in the world."},{s:"Texas A&M",w:"Strong large-animal focus and in-state pricing."},{s:"Colorado State",w:"Excellent program with real clinical exposure early."}],
+    collegeNote:"In-state vet school tuition can be less than half the out-of-state price, and with only about thirty schools nationally, residency is real leverage. Going undergrad in a state that has a vet school and establishing residency there is the biggest financial decision on this path.",
+    pay:{range:"$100k\u2013$140k",note:"Median around $120k, which sounds strong until you weigh it against vet school debt that frequently exceeds $200k. Debt-to-income is the hardest math in medicine."},
+    truth:"There are only about thirty accredited vet schools in the U.S., and applicants need hundreds of documented hours across different animal types — small animal, large animal, research. Start accumulating those in ninth grade, because you cannot manufacture them senior year of college. Also look hard at the debt-to-salary ratio for the profession before you commit; it's one of the toughest in medicine."
+  },
+  {
+    id:"gamedev", name:"Game developer", aka:"games gaming game design unity unreal graphics",
+    tagline:"Split path: the programming side is math-heavy, the design side is portfolio-heavy. This map does both.",
+    years:{
+      9:[{n:"AP Computer Science Principles",ap:true},{n:"Geometry",ap:false,note:"Vectors and transforms start here."},{n:"Art I or digital art",ap:false},{n:"English 9",ap:false}],
+      10:[{n:"AP Computer Science A",ap:true},{n:"Algebra II / AP Precalculus",ap:true},{n:"AP 2-D Art & Design",ap:true,note:"Only if you're leaning art or design."},{n:"Ship a small game",ap:false,note:"Itch.io. Finish something bad. Then something better."}],
+      11:[{n:"AP Calculus AB",ap:true},{n:"AP Physics 1",ap:true,note:"Game physics is literally this."},{n:"AP English Language",ap:true},{n:"Music theory or 3-D Art & Design",ap:true}],
+      12:[{n:"AP Calculus BC",ap:true},{n:"AP Physics C: Mechanics",ap:true},{n:"AP Statistics",ap:true,note:"Procedural generation and game balance."},{n:"Game jam portfolio",ap:false}]
+    },
+    credit:[
+      {b:"AP Calculus BC",t:"linear algebra and graphics math sit directly on top of this."},
+      {b:"AP CSA",t:"clears intro programming at many schools."},
+      {b:"AP Physics C",t:"the closest AP to how engines actually simulate the world."},
+      {b:"AP Art & Design",t:"portfolio credit at art-focused programs like DigiPen or SCAD."}
+    ],
+    majors:["Computer science with a graphics focus","Game design and development","Interactive media","Digital art","Computer engineering"],
+    colleges:[{s:"USC",w:"Top-ranked game design, and it's in the industry's backyard."},{s:"DigiPen",w:"Brutal and specialized. Graduates get hired."},{s:"University of Utah (EAE)",w:"Excellent program at public-school cost."},{s:"Any solid CS program",w:"Portfolio decides this field, not the degree."}],
+    collegeNote:"Think hard before choosing a narrow game-design degree over general computer science. It's largely the same math and programming, but CS keeps every other software job open if the industry has a bad year, and games have bad years. Build the portfolio on the side either way.",
+    pay:{range:"$85k\u2013$120k",note:"Below general software engineering for comparable skill, and layoffs have been heavy across the industry. Studios pay in passion; budget accordingly."},
+    truth:"Studios hire on portfolio, full stop — three finished small games beat one unfinished ambitious one. Get a general CS degree rather than a narrow game-design one if you can, because it's the same math and it keeps every other software job open. Games pay less and crunch harder than the rest of the industry, and having that fallback is what makes the risk affordable."
+  }
+];
+
+CAREERS.push(
+{
+  id:"dentist", name:"Dentist", aka:"dental dds dmd orthodontist oral surgeon teeth",
+  tagline:"Pre-dental looks like pre-med with one addition nobody warns you about: your hands are part of the application.",
+  years:{
+    9:[{n:"Biology",ap:false},{n:"Geometry or Algebra II",ap:false},{n:"English 9",ap:false},{n:"Art or ceramics",ap:false,note:"Not a throwaway. Dental schools assess manual dexterity."}],
+    10:[{n:"AP Chemistry",ap:true},{n:"Algebra II or Precalculus",ap:false},{n:"AP World History",ap:true},{n:"Sculpture or jewelry-making",ap:false}],
+    11:[{n:"AP Biology",ap:true},{n:"AP Precalculus or Calculus AB",ap:true},{n:"AP English Language",ap:true},{n:"AP Physics 1",ap:true,note:"A DAT and dental school prerequisite."}],
+    12:[{n:"AP Statistics",ap:true},{n:"AP Psychology",ap:true},{n:"Anatomy elective",ap:false},{n:"Shadow a dentist",ap:false,note:"Schools want documented hours."}]
+  },
+  credit:[
+    {b:"AP Chemistry",t:"strong preparation, but dental schools generally want general and organic chemistry taken at college."},
+    {b:"AP Biology",t:"same rule. Take it to be ready, not to skip ahead."},
+    {b:"AP Statistics",t:"often satisfies the stats prerequisite outright."},
+    {b:"AP Physics 1",t:"physics is a prerequisite at nearly every dental school; credit acceptance varies."}
+  ],
+  majors:["Biology","Biochemistry","Chemistry","Health sciences","Any major, as long as the prerequisites are done"],
+  colleges:[
+    {s:"University of Michigan","w":"Strong pre-dental advising and a dental school on campus."},
+    {s:"UNC Chapel Hill",w:"Excellent pre-health track at in-state pricing."},
+    {s:"UCLA",w:"Deep research and shadowing opportunities in a huge metro."},
+    {s:"Your state flagship",w:"In-state dental school tuition is dramatically cheaper. Residency matters."}
+  ],
+  collegeNote:"Dental school costs frequently exceed $300,000, and in-state public programs can be less than half the price of private ones. Where you establish residency may matter more to your finances than where you go undergrad.",
+  pay:{range:"$160k–$200k+",note:"Median for general dentists is around $170k, and specialists like orthodontists earn substantially more. Balance that against dental school debt, which often lands north of $300k."},
+  truth:"Manual dexterity is a real, assessed part of dental admissions — some schools interview on it and the DAT has a perceptual ability section. Students who spent years on ceramics, model building, or playing an instrument have an advantage they never planned for. Start something hands-on in ninth grade."
+},
+{
+  id:"pharmacist", name:"Pharmacist", aka:"pharmacy pharmd drugs medication chemist",
+  tagline:"There's a shortcut most students never hear about: direct-entry programs that admit you to pharmacy school straight from high school.",
+  years:{
+    9:[{n:"Biology",ap:false},{n:"Algebra I or Geometry",ap:false},{n:"English 9",ap:false},{n:"Health science intro",ap:false}],
+    10:[{n:"AP Chemistry",ap:true,note:"The single most important course on this path."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Work as a pharmacy tech",ap:false}],
+    11:[{n:"AP Biology",ap:true},{n:"AP Calculus AB",ap:true},{n:"AP Statistics",ap:true},{n:"AP English Language",ap:true}],
+    12:[{n:"AP Physics 1",ap:true},{n:"AP Psychology",ap:true},{n:"Organic chem or anatomy elective",ap:false},{n:"Pharmacy internship hours",ap:false}]
+  },
+  credit:[
+    {b:"AP Chemistry",t:"the highest-value AP here, though PharmD programs usually want the college sequence anyway."},
+    {b:"AP Calculus AB",t:"typically clears the required calculus outright."},
+    {b:"AP Statistics",t:"commonly accepted, and used constantly in pharmacotherapy."},
+    {b:"AP Biology",t:"good preparation for a heavy physiology load."}
+  ],
+  majors:["Pre-pharmacy or direct-entry PharmD","Biochemistry","Chemistry","Biology","Health sciences"],
+  colleges:[
+    {s:"Purdue",w:"Direct-entry program. You're admitted to pharmacy from high school."},
+    {s:"Northeastern",w:"Six-year direct-entry PharmD with co-op experience built in."},
+    {s:"UNC Chapel Hill",w:"Consistently top-ranked pharmacy school."},
+    {s:"University of Michigan",w:"Strong program with early assurance options."}
+  ],
+  collegeNote:"Direct-entry (0-6) programs admit you to the PharmD as a high school senior, so you never reapply. They're competitive and the deadlines fall early in senior year — this is a thing to know as a sophomore, not in December of twelfth grade.",
+  pay:{range:"$125k–$150k",note:"Median around $137k with a doctorate. Retail pharmacy hiring has softened while clinical and hospital roles have held up better, so the setting you target matters."},
+  truth:"Getting hired as a pharmacy technician in high school is the highest-leverage move on this list. It pays, it counts as experience on your application, and it shows you what the job actually is day to day — which is far more counseling and insurance navigation than chemistry."
+},
+{
+  id:"pt", name:"Physical therapist", aka:"physical therapy dpt rehab sports medicine athletic trainer kinesiology",
+  tagline:"A doctorate is required, but 3+3 programs can compress the whole thing into six years instead of seven.",
+  years:{
+    9:[{n:"Biology",ap:false},{n:"Geometry",ap:false},{n:"English 9",ap:false},{n:"Play a sport or train",ap:false,note:"Understanding movement from the inside helps."}],
+    10:[{n:"Chemistry",ap:false},{n:"Algebra II",ap:false},{n:"AP Psychology",ap:true,note:"Motivating patients is most of the job."},{n:"Sports medicine elective",ap:false}],
+    11:[{n:"AP Biology",ap:true},{n:"AP Physics 1",ap:true,note:"Biomechanics is applied physics."},{n:"AP Statistics",ap:true},{n:"AP English Language",ap:true}],
+    12:[{n:"Anatomy & physiology",ap:false,note:"Take dual enrollment if it's offered."},{n:"AP Calculus AB",ap:true},{n:"AP Chemistry",ap:true},{n:"Observation hours in a clinic",ap:false,note:"DPT programs require documented hours."}]
+  },
+  credit:[
+    {b:"AP Statistics",t:"usually satisfies the stats prerequisite that every DPT program requires."},
+    {b:"AP Psychology",t:"often clears intro psych, another common prerequisite."},
+    {b:"AP Biology / Physics",t:"good preparation, though anatomy and physiology are generally required at college level."},
+    {b:"General ed credit",t:"valuable here — it makes an accelerated 3+3 schedule fit."}
+  ],
+  majors:["Exercise science / Kinesiology","Biology","Health sciences","Athletic training","Any major with the prerequisites done"],
+  colleges:[
+    {s:"University of Delaware",w:"Perennially top-ranked DPT with a 3+3 pathway."},
+    {s:"University of Pittsburgh",w:"Elite program with guaranteed-admission options."},
+    {s:"USC",w:"Top-ranked, strong sports and orthopedic focus."},
+    {s:"Washington University in St. Louis",w:"Consistently among the very best DPT programs."}
+  ],
+  collegeNote:"Look specifically for 3+3 or guaranteed-admission programs, which lock in your DPT seat from freshman year and cut a year off the timeline. They're advertised badly and most applicants never find them.",
+  pay:{range:"$85k–$110k",note:"Median around $99k. DPT debt commonly runs $100k–$150k, so the debt-to-income ratio is tighter than the salary suggests. Home health and travel PT pay noticeably more."},
+  truth:"Every DPT program requires documented observation hours across multiple settings — outpatient, inpatient, sometimes pediatrics — and students routinely scramble for these senior year of college. Start logging them in eleventh grade. A clinic near you will almost certainly say yes to a high schooler who asks."
+},
+{
+  id:"datasci", name:"Data scientist", aka:"data science analytics machine learning ai statistics analyst",
+  tagline:"Statistics is the whole foundation, and it's the course most future data scientists skip in high school.",
+  years:{
+    9:[{n:"AP Computer Science Principles",ap:true},{n:"Geometry or Algebra II",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false}],
+    10:[{n:"AP Computer Science A",ap:true},{n:"AP Precalculus",ap:true},{n:"AP World History",ap:true},{n:"Chemistry",ap:false}],
+    11:[{n:"AP Statistics",ap:true,note:"The single most relevant AP to this career."},{n:"AP Calculus AB",ap:true},{n:"AP English Language",ap:true},{n:"AP Physics 1",ap:true}],
+    12:[{n:"AP Calculus BC",ap:true,note:"Linear algebra sits directly on top of this."},{n:"AP Macroeconomics",ap:true},{n:"AP Psychology or sociology",ap:true,note:"You'll model human behavior constantly."},{n:"Personal data project",ap:false,note:"Analyze something you actually care about."}]
+  },
+  credit:[
+    {b:"AP Calculus BC",t:"the mathematical prerequisite for machine learning coursework. Commonly worth two semesters."},
+    {b:"AP Statistics",t:"often clears intro stats, though many programs want their own version. Take it regardless."},
+    {b:"AP CSA",t:"places you out of intro programming at many schools."},
+    {b:"AP Micro or Macro",t:"useful, since a large share of data science jobs sit inside business functions."}
+  ],
+  majors:["Data science","Statistics","Computer science","Applied mathematics","Economics with a quantitative focus"],
+  colleges:[
+    {s:"UC Berkeley",w:"Built one of the first and largest undergraduate data science programs."},
+    {s:"Carnegie Mellon",w:"Unmatched depth in the machine learning side."},
+    {s:"University of Michigan",w:"Strong statistics department with real industry pipelines."},
+    {s:"UT Austin",w:"Excellent program at public pricing, in a growing tech market."}
+  ],
+  collegeNote:"A statistics or computer science degree opens the same doors as a data science degree and is more portable if you change direction. Employers screen on whether you can actually analyze a messy dataset, which you demonstrate with projects rather than a major name.",
+  pay:{range:"$95k–$140k",note:"Median around $108k, higher in tech hubs and finance. Entry-level analyst roles start lower, near $70k, and the title inflation in this field is significant — read the job description, not the title."},
+  truth:"The part of the job nobody shows you is that most of it is cleaning messy data and explaining findings to people who don't want to hear them. The modeling is maybe a fifth of the work. Practice writing clearly about numbers now — it separates data scientists who get promoted from ones who don't."
+},
+{
+  id:"cyber", name:"Cybersecurity analyst", aka:"cyber security hacking infosec network penetration testing it",
+  tagline:"One of the few fields where certifications you can earn in high school genuinely count toward getting hired.",
+  years:{
+    9:[{n:"AP Computer Science Principles",ap:true,note:"Covers networking and internet fundamentals."},{n:"Geometry or Algebra II",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false}],
+    10:[{n:"AP Computer Science A",ap:true},{n:"Algebra II / AP Precalculus",ap:true},{n:"AP World History",ap:true},{n:"IT or networking elective",ap:false,note:"CompTIA A+ or Network+ if offered."}],
+    11:[{n:"AP Calculus AB",ap:true},{n:"AP Statistics",ap:true},{n:"AP English Language",ap:true},{n:"CyberPatriot or CTF team",ap:false,note:"The strongest signal on a resume at this age."}],
+    12:[{n:"AP Calculus BC",ap:true},{n:"AP U.S. Government",ap:true,note:"Policy and law shape this whole field."},{n:"AP Physics 1 or advanced CS",ap:true},{n:"Security+ certification",ap:false,note:"You can earn it in high school."}]
+  },
+  credit:[
+    {b:"AP CSA",t:"clears intro programming at many schools, and you'll need to code more than people expect."},
+    {b:"AP Calculus",t:"required-level math for a computer science degree, which most security programs sit inside."},
+    {b:"AP Statistics",t:"useful for anomaly detection and threat analysis work."},
+    {b:"Certifications",t:"Security+ and Network+ don't earn college credit but they do get interviews."}
+  ],
+  majors:["Cybersecurity","Computer science","Computer engineering","Information systems","Network engineering"],
+  colleges:[
+    {s:"Carnegie Mellon",w:"The deepest security research program in the country."},
+    {s:"Purdue",w:"Home of one of the oldest information security centers."},
+    {s:"Rochester Institute of Technology",w:"Very hands-on, with strong co-op placement."},
+    {s:"University of Maryland",w:"Proximity to federal agencies means unmatched internships."}
+  ],
+  collegeNote:"Look for NSA-designated Centers of Academic Excellence in Cyber Defense — it's a real federal designation, the list is public, and it includes many affordable state schools alongside the famous ones.",
+  pay:{range:"$95k–$140k",note:"Median around $120k for information security analysts, and the field has one of the faster projected growth rates in tech. Government roles pay less but offer clearances that raise your value later."},
+  truth:"A security clearance can be worth more than a degree in this field, and cleared entry-level roles often pay above uncleared senior ones. Clearances require a clean background and take a year or more to process, so decisions you make in high school about what you post and who you associate with have a real professional cost here."
+},
+{
+  id:"cpa", name:"Accountant (CPA)", aka:"accounting cpa audit tax bookkeeping finance",
+  tagline:"The most reliably employable business degree there is — and there's a 150-credit rule that changes how you plan college.",
+  years:{
+    9:[{n:"Algebra I or Geometry",ap:false},{n:"English 9",ap:false},{n:"Biology",ap:false},{n:"Intro business or accounting",ap:false}],
+    10:[{n:"Accounting I",ap:false,note:"Take it if your school offers it."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"AP Macroeconomics",ap:true}],
+    11:[{n:"AP Microeconomics",ap:true},{n:"AP Statistics",ap:true},{n:"AP Calculus AB",ap:true},{n:"AP English Language",ap:true}],
+    12:[{n:"AP U.S. Government",ap:true},{n:"AP Computer Science Principles",ap:true,note:"Excel and data tools are the modern job."},{n:"Advanced accounting or DECA",ap:false},{n:"Part-time bookkeeping work",ap:false}]
+  },
+  credit:[
+    {b:"AP credit generally",t:"unusually valuable here, because it helps you reach 150 credit hours without paying for a fifth year."},
+    {b:"AP Micro + Macro",t:"frequently clears both intro economics requirements."},
+    {b:"AP Statistics",t:"commonly satisfies the business statistics requirement."},
+    {b:"AP Calculus AB",t:"clears the math requirement for most business schools."}
+  ],
+  majors:["Accounting","Finance","Business administration","Management information systems","Economics"],
+  colleges:[
+    {s:"UT Austin",w:"Consistently the top-ranked accounting program in the country."},
+    {s:"BYU",w:"Elite accounting placement at remarkably low tuition."},
+    {s:"University of Illinois",w:"Enormous Big Four recruiting pipeline."},
+    {s:"Your state flagship",w:"Big Four firms recruit regionally. Local flagships place well."}
+  ],
+  collegeNote:"CPA licensure requires 150 credit hours in most states — thirty more than a normal bachelor's. AP credit directly reduces that gap, which is worth real money. Integrated five-year master's programs are the common path, so factor that into cost from the start.",
+  pay:{range:"$65k–$95k starting",note:"Median around $79k overall, with Big Four starting salaries near $65k and rising quickly after the CPA. Less glamorous than banking, far more stable, and the hours are humane outside busy season."},
+  truth:"Accounting has one of the highest job placement rates of any major and a genuine shortage of new CPAs, which means leverage. The tradeoff is that busy season — January through April — is genuinely brutal, and the work is detail-heavy in a way that suits some people and grinds down others. Take an accounting class in high school specifically to find out which you are."
+},
+{
+  id:"marketing", name:"Marketing manager", aka:"marketing advertising brand social media pr communications",
+  tagline:"Anyone can claim marketing skills, so the whole game is proving it with things you've actually run.",
+  years:{
+    9:[{n:"English 9",ap:false},{n:"Geometry",ap:false},{n:"Biology",ap:false},{n:"Start a social account or store",ap:false,note:"Real audience, real data, starting now."}],
+    10:[{n:"AP Macroeconomics",ap:true},{n:"Algebra II",ap:false},{n:"AP Psychology",ap:true,note:"Marketing is applied psychology."},{n:"Graphic design or media elective",ap:false}],
+    11:[{n:"AP Statistics",ap:true,note:"Modern marketing is measurement."},{n:"AP English Language",ap:true,note:"Persuasive writing, directly applicable."},{n:"AP Microeconomics",ap:true},{n:"DECA or a school business",ap:false}],
+    12:[{n:"AP Calculus AB",ap:true},{n:"AP Computer Science Principles",ap:true,note:"Analytics tools and basic automation."},{n:"AP Seminar or Research",ap:true},{n:"Run a campaign for a local business",ap:false,note:"Your portfolio starts here."}]
+  },
+  credit:[
+    {b:"AP Statistics",t:"satisfies business statistics and is the skill that separates marketers who get promoted."},
+    {b:"AP Micro + Macro",t:"usually clears both intro economics courses required by business schools."},
+    {b:"AP Psychology",t:"often clears intro psych, and consumer behavior builds straight on it."},
+    {b:"AP English Language",t:"clears composition; the rhetorical skills transfer directly to copywriting."}
+  ],
+  majors:["Marketing","Business administration","Communications","Psychology","Data analytics"],
+  colleges:[
+    {s:"University of Michigan (Ross)",w:"Top business school with strong brand-side recruiting."},
+    {s:"Indiana (Kelley)",w:"Excellent marketing program, strong placement, public pricing."},
+    {s:"NYU Stern",w:"In the advertising capital, which means internships all four years."},
+    {s:"Any school near a major city",w:"Agency internships beat coursework. Location is leverage."}
+  ],
+  collegeNote:"Marketing is a portfolio field wearing a business degree. Managing real accounts, running a real campaign with real numbers attached, or growing something to a real audience will outweigh your school's ranking in nearly every interview.",
+  pay:{range:"$50k starting, $110k+ mid-career",note:"Marketing manager median is around $157k, but that's a role you reach after years — entry-level coordinator jobs start closer to $50k. The gap between those two numbers is the part career sites hide."},
+  truth:"Marketing is one of the easiest fields to enter and one of the hardest to stand out in, because everyone applying says they're creative and good with people. The candidates who get hired show a spreadsheet: this campaign, this spend, this result. Start collecting those numbers in high school, even for a club bake sale."
+},
+{
+  id:"ux", name:"UX designer", aka:"ux ui product design user experience app design figma graphic design",
+  tagline:"Psychology and design in equal measure, and nobody will hire you without a portfolio, degree or not.",
+  years:{
+    9:[{n:"Art I or digital design",ap:false},{n:"Geometry",ap:false},{n:"English 9",ap:false},{n:"AP Computer Science Principles",ap:true}],
+    10:[{n:"AP 2-D Art & Design",ap:true,note:"Starts your portfolio properly."},{n:"AP Psychology",ap:true,note:"UX is applied cognitive psychology."},{n:"Algebra II",ap:false},{n:"Learn Figma",ap:false,note:"Free for students, industry standard."}],
+    11:[{n:"AP Computer Science A",ap:true,note:"You don't have to code, but knowing what's buildable matters."},{n:"AP English Language",ap:true},{n:"AP Statistics",ap:true,note:"You'll run and read user research."},{n:"AP Precalculus",ap:true}],
+    12:[{n:"AP Drawing or 3-D Design",ap:true},{n:"AP Seminar or Research",ap:true,note:"User research is research."},{n:"Redesign a real app",ap:false,note:"Case study format. This is your portfolio."},{n:"Sociology or anthropology",ap:false}]
+  },
+  credit:[
+    {b:"AP Art & Design",t:"the process portfolio doubles as the start of your professional portfolio."},
+    {b:"AP Psychology",t:"clears intro psych, which most HCI programs require anyway."},
+    {b:"AP Statistics",t:"directly used in usability testing and A/B analysis."},
+    {b:"AP CSA",t:"useful for talking credibly with engineers, which is half the job."}
+  ],
+  majors:["Human-computer interaction","Information science","Graphic or communication design","Psychology","Computer science with a design focus"],
+  colleges:[
+    {s:"Carnegie Mellon",w:"The strongest HCI program anywhere, undergrad through PhD."},
+    {s:"University of Michigan (UMSI)",w:"Excellent information school with real UX placement."},
+    {s:"University of Washington",w:"Strong HCI program next door to major tech employers."},
+    {s:"RISD or a strong art school",w:"If you're leaning visual rather than research."}
+  ],
+  collegeNote:"UX hiring runs on portfolios and case studies, not transcripts. What matters is showing your process — the problem, the research, the iterations, the reasoning — not just polished final screens. Three deep case studies beat twenty pretty mockups.",
+  pay:{range:"$75k–$120k",note:"Entry-level product designers start near $75k, with senior roles at large tech companies well above $150k. Hiring tightened after 2022, so junior roles are more competitive than they were."},
+  truth:"Beautiful screens are the easiest part and the least valued. What gets people hired is evidence they talked to actual users, found something surprising, and changed the design because of it. You can do that in high school — redesign something at your school, interview five students about it, and document what you learned."
+},
+{
+  id:"socialwork", name:"Social worker", aka:"social work msw lcsw therapist counselor case manager child welfare",
+  tagline:"The fastest legitimate route to being a licensed therapist, and one of the most needed jobs in the country.",
+  years:{
+    9:[{n:"English 9",ap:false},{n:"Biology",ap:false},{n:"Geometry",ap:false},{n:"Volunteer somewhere consistently",ap:false,note:"One place, for years. Depth beats variety."}],
+    10:[{n:"AP Psychology",ap:true},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Sociology if offered",ap:false}],
+    11:[{n:"AP Statistics",ap:true,note:"Program evaluation runs on it."},{n:"AP English Language",ap:true},{n:"AP U.S. Government",ap:true,note:"Policy shapes every case you'll handle."},{n:"Peer counseling program",ap:false}],
+    12:[{n:"AP Human Geography",ap:true},{n:"AP Seminar or Research",ap:true},{n:"Spanish or a second language",ap:false,note:"Bilingual social workers are in acute demand."},{n:"Crisis line training",ap:false}]
+  },
+  credit:[
+    {b:"AP Psychology",t:"typically clears intro psych, a requirement in every social work program."},
+    {b:"AP Statistics",t:"satisfies the research methods statistics requirement."},
+    {b:"AP U.S. Government",t:"counts as general education and grounds you in the policy side."},
+    {b:"General ed credit",t:"opens room for advanced-standing MSW preparation."}
+  ],
+  majors:["Social work (BSW)","Psychology","Sociology","Human services","Public health"],
+  colleges:[
+    {s:"University of Michigan",w:"Top-ranked school of social work with a strong BSW."},
+    {s:"Washington University in St. Louis",w:"Consistently among the very best MSW programs."},
+    {s:"UNC Chapel Hill",w:"Excellent program at in-state cost."},
+    {s:"Your in-state public",w:"Licensure is state-based, and debt matters enormously on this salary."}
+  ],
+  collegeNote:"Get a BSW specifically, because it qualifies you for advanced-standing MSW programs that take one year instead of two. That single decision saves a year of tuition and a year of lost income, and most students discover it too late.",
+  pay:{range:"$50k–$75k",note:"Median around $58k, higher in healthcare settings and private practice. It's the lowest pay on this site relative to the education required, and that's the honest headline."},
+  truth:"An LCSW lets you practice therapy independently, and it takes two years of graduate school plus supervised hours — versus five to seven years for a psychology doctorate. Most therapists you'd actually meet took this route. Just go in clear-eyed: burnout rates are high, caseloads are heavy, and loving the work is not by itself protection against it."
+},
+{
+  id:"pilot", name:"Airline pilot", aka:"pilot aviation flying flight aircraft airline commercial",
+  tagline:"The only career here where the main barrier isn't grades — it's flight hours and the money to buy them.",
+  years:{
+    9:[{n:"Algebra I or Geometry",ap:false},{n:"Physics or physical science",ap:false},{n:"English 9",ap:false},{n:"Civil Air Patrol",ap:false,note:"Free flight time and scholarships."}],
+    10:[{n:"AP Precalculus",ap:true},{n:"Chemistry",ap:false},{n:"AP World History",ap:true},{n:"Start ground school",ap:false,note:"You can solo at 16."}],
+    11:[{n:"AP Physics 1",ap:true,note:"Aerodynamics is applied physics."},{n:"AP Calculus AB",ap:true},{n:"AP English Language",ap:true},{n:"Private pilot license",ap:false,note:"Available at 17."}],
+    12:[{n:"AP Environmental Science",ap:true,note:"Weather is half of flying."},{n:"AP Statistics",ap:true},{n:"AP Computer Science Principles",ap:true,note:"Modern cockpits are systems management."},{n:"Build flight hours",ap:false}]
+  },
+  credit:[
+    {b:"AP Physics 1",t:"strong preparation for aerodynamics coursework, and credit is often accepted."},
+    {b:"AP Calculus",t:"required for most aviation and aeronautical science degrees."},
+    {b:"General ed credit",t:"genuinely valuable — it frees schedule space for flight training, which eats time."},
+    {b:"None of it",t:"substitutes for flight hours. The certificates are separate from the degree."}
+  ],
+  majors:["Aeronautical science / Professional flight","Aviation management","Aerospace engineering","Any degree, plus flight training separately"],
+  colleges:[
+    {s:"Embry-Riddle",w:"The best-known aviation university, with major airline pipelines."},
+    {s:"University of North Dakota",w:"Elite aviation program at public tuition."},
+    {s:"Purdue",w:"Strong flight program inside a top engineering school."},
+    {s:"Ohio State",w:"Well-regarded aviation program with R-ATP eligibility."}
+  ],
+  collegeNote:"Graduating from an approved collegiate program earns R-ATP eligibility, which lowers the airline hiring minimum from 1,500 flight hours to as few as 1,000. That's roughly a year of your life, which is the real reason to choose an aviation school over training independently.",
+  pay:{range:"$90k–$300k+",note:"Regional first officers start near $90k, and senior wide-body captains at major airlines can exceed $300k. Seniority governs everything — pay, schedule, and which city you live in."},
+  truth:"Flight training costs $80,000 to $100,000 on top of tuition, and it's the reason most people who want this never do it. Scholarships exist and are underapplied for — Civil Air Patrol, AOPA, and airline cadet programs that pay for training in exchange for a commitment. Also get a first-class medical certificate early: some conditions disqualify you, and it's far better to learn that at sixteen than after spending $80,000."
+},
+{
+  id:"filmmaker", name:"Film director", aka:"film director movie cinema screenwriter tv production video",
+  tagline:"Nobody is hired to direct. You direct something, and that becomes the reason someone hires you.",
+  years:{
+    9:[{n:"English 9",ap:false},{n:"Art or photography",ap:false},{n:"Geometry",ap:false},{n:"Make short films now",ap:false,note:"A phone is enough. Finishing is the skill."}],
+    10:[{n:"AP 2-D Art & Design",ap:true,note:"Composition transfers directly to cinematography."},{n:"Video production elective",ap:false},{n:"Algebra II",ap:false},{n:"AP World History",ap:true}],
+    11:[{n:"AP English Language",ap:true},{n:"AP Art History",ap:true,note:"Visual literacy is a director's core asset."},{n:"AP Psychology",ap:true,note:"Directing actors is applied psychology."},{n:"AP Statistics",ap:true}],
+    12:[{n:"AP English Literature",ap:true,note:"Story structure, which is most of the job."},{n:"AP Seminar or Research",ap:true},{n:"Theater or acting class",ap:false,note:"You can't direct actors without understanding the work."},{n:"Complete a short film",ap:false,note:"Your application material."}]
+  },
+  credit:[
+    {b:"AP English Lang & Lit",t:"clears composition requirements and builds the narrative instincts the job runs on."},
+    {b:"AP Art History",t:"often satisfies arts general education and sharpens your visual reference library."},
+    {b:"AP 2-D Art & Design",t:"portfolio credit at some art-focused film schools."},
+    {b:"Your reel",t:"is what actually gets you into competitive film programs. The APs get you admitted to the university."}
+  ],
+  majors:["Film and television production","Screenwriting","Media studies","Theater","English"],
+  colleges:[
+    {s:"USC",w:"The strongest industry network in film education, full stop."},
+    {s:"NYU Tisch",w:"Elite program, and New York is a working production city."},
+    {s:"UCLA",w:"Top program at public tuition if you're a California resident."},
+    {s:"Chapman",w:"Excellent facilities and rising reputation, easier to get into."}
+  ],
+  collegeNote:"Film school is expensive and entry-level industry pay is low, which is a dangerous combination for debt. USC and NYU cost the same as medical school and lead to $40,000 production assistant jobs. If you can't attend cheaply, making films independently and building a reel is a legitimate path many working directors took.",
+  pay:{range:"$40k–$90k early, wildly variable after",note:"Median for producers and directors is around $86k, but that average hides enormous spread — many work project to project with gaps between, while a few earn multiples of it. Assume years of instability at the start."},
+  truth:"Film school's real product is the network, not the instruction. Everything technical is on YouTube for free; what you're paying for is the cohort who will hire each other for the next thirty years. That means the single best use of film school is being genuinely useful to your classmates, and the worst outcome is going into debt for it while keeping to yourself."
+},
+{
+  id:"producer", name:"Music producer", aka:"music producer audio engineer beats recording songwriter musician",
+  tagline:"The one career on this list where nobody will ever ask whether you went to college.",
+  years:{
+    9:[{n:"Play an instrument seriously",ap:false,note:"Any instrument. Theory sticks better through hands."},{n:"English 9",ap:false},{n:"Geometry",ap:false},{n:"Start making tracks",ap:false,note:"Free software is enough to begin."}],
+    10:[{n:"AP Music Theory",ap:true,note:"The highest-value AP for this path by a wide margin."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Audio or recording elective",ap:false}],
+    11:[{n:"AP Physics 1",ap:true,note:"Acoustics and signal behavior are physics."},{n:"AP English Language",ap:true},{n:"AP Computer Science Principles",ap:true,note:"Production is software fluency."},{n:"AP Statistics",ap:true}],
+    12:[{n:"AP Macroeconomics",ap:true,note:"Royalties, splits, and contracts are business."},{n:"AP Psychology",ap:true},{n:"AP Calculus AB",ap:true},{n:"Release and promote a project",ap:false,note:"Finished and public beats perfect and private."}]
+  },
+  credit:[
+    {b:"AP Music Theory",t:"clears freshman theory at most music schools, which is a genuinely difficult course."},
+    {b:"AP Physics 1",t:"underrated here — acoustics, room treatment, and signal flow all build on it."},
+    {b:"AP Macroeconomics",t:"the music business is contracts and royalties, and understanding them protects you."},
+    {b:"Your catalog",t:"is the credential. Everything above is supporting."}
+  ],
+  majors:["Music production and engineering","Music business","Audio engineering","Music composition","Anything, while producing on the side"],
+  colleges:[
+    {s:"Berklee College of Music",w:"The most recognized name, and a genuinely strong network."},
+    {s:"NYU Clive Davis",w:"Music business and production in the industry's center."},
+    {s:"Middle Tennessee State",w:"Outstanding recording program near Nashville at public pricing."},
+    {s:"No degree at all",w:"A legitimate option. Many working producers never enrolled."}
+  ],
+  collegeNote:"Berklee costs upward of $60,000 a year and music income is famously unreliable, so this is one of the worst places to take on heavy debt. Middle Tennessee State and similar programs offer serious training for a fraction of it, and self-teaching is more viable here than in any other field on this site.",
+  pay:{range:"Highly variable",note:"Median for music directors and composers sits near $60k, but the distribution is extreme — most earn little, a few earn a great deal. Most working producers assemble income from several sources: production, mixing, sync licensing, teaching."},
+  truth:"Producing is a relationship business more than a technical one. The producers who work steadily are the ones artists enjoy being in a room with for twelve hours. Technical skill is table stakes and gets cheaper every year, while being reliable, easy to work with, and good at finishing is what actually compounds. Start by producing for people at your school, for free, and finish everything you start."
+},
+{
+  id:"fashion", name:"Fashion designer", aka:"fashion design clothing apparel style textile merchandising",
+  tagline:"A portfolio field where the technical skills — patternmaking, construction, textiles — matter more than the ideas.",
+  years:{
+    9:[{n:"Art I / drawing",ap:false},{n:"English 9",ap:false},{n:"Geometry",ap:false,note:"Patternmaking is applied geometry."},{n:"Learn to sew",ap:false,note:"Non-negotiable. Start now."}],
+    10:[{n:"AP 2-D Art & Design",ap:true,note:"Builds the portfolio schools require."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"Textiles or family sciences elective",ap:false}],
+    11:[{n:"AP Art History",ap:true,note:"Fashion references its own history constantly."},{n:"AP English Language",ap:true},{n:"AP Macroeconomics",ap:true,note:"It's a manufacturing business first."},{n:"AP Chemistry",ap:true,note:"Fibers, dyes, and sustainable materials."}],
+    12:[{n:"AP Drawing",ap:true},{n:"AP 3-D Art & Design",ap:true,note:"Garments are three-dimensional problems."},{n:"AP Environmental Science",ap:true,note:"Sustainability is reshaping the whole industry."},{n:"Build your portfolio",ap:false,note:"12–20 pieces, sketches through finished garments."}]
+  },
+  credit:[
+    {b:"AP Art & Design",t:"the sustained investigation doubles as admissions portfolio material. The best two-for-one here."},
+    {b:"AP Art History",t:"usually clears required art history survey courses."},
+    {b:"AP Macroeconomics",t:"useful for the merchandising and production side, where most jobs actually are."},
+    {b:"AP Chemistry",t:"unexpectedly relevant as sustainable textile development grows."}
+  ],
+  majors:["Fashion design","Fashion merchandising","Textile design","Apparel product development","Business with a design minor"],
+  colleges:[
+    {s:"Parsons School of Design",w:"The most prestigious American fashion program."},
+    {s:"Fashion Institute of Technology",w:"Elite training at SUNY public tuition. The value pick by far."},
+    {s:"Rhode Island School of Design",w:"Rigorous, conceptual, and highly respected."},
+    {s:"Savannah College of Art and Design",w:"Strong industry connections and generous merit aid."}
+  ],
+  collegeNote:"FIT is part of the SUNY system, which makes it a fraction of Parsons' cost with genuine industry standing and a New York location. In a field where starting salaries are low, that price difference compounds into years of your life.",
+  pay:{range:"$45k–$85k",note:"Median around $79k, but entry-level design assistant roles start near $45k in expensive cities. Merchandising, technical design, and production management pay better and hire far more people than runway design does."},
+  truth:"Most fashion jobs aren't designing clothes. They're technical design, production, merchandising, and sourcing — the roles that get garments actually made and sold. Students who arrive wanting only to sketch struggle; students who can sew, draft a pattern, and read a tech pack get hired immediately. Learn construction before you learn to sketch."
+},
+{
+  id:"slp", name:"Speech-language pathologist", aka:"speech therapy slp pathologist language communication disorders audiology",
+  tagline:"A master's-level career with unusually strong demand and one of the better work-life balances in healthcare.",
+  years:{
+    9:[{n:"Biology",ap:false},{n:"English 9",ap:false},{n:"Geometry",ap:false},{n:"Volunteer with kids or elders",ap:false}],
+    10:[{n:"AP Psychology",ap:true,note:"Development and cognition underpin the whole field."},{n:"Algebra II",ap:false},{n:"AP World History",ap:true},{n:"A world language",ap:false,note:"Bilingual SLPs are in severe shortage."}],
+    11:[{n:"AP Biology",ap:true,note:"Anatomy of speech and swallowing."},{n:"AP Statistics",ap:true,note:"Required by essentially every graduate program."},{n:"AP English Language",ap:true},{n:"AP Physics 1",ap:true,note:"Acoustics and hearing science."}],
+    12:[{n:"AP Research",ap:true},{n:"AP Human Geography or sociology",ap:true},{n:"Anatomy & physiology",ap:false},{n:"Observation hours with an SLP",ap:false,note:"Graduate programs want them documented."}]
+  },
+  credit:[
+    {b:"AP Statistics",t:"required by nearly every SLP graduate program and commonly satisfied by the AP."},
+    {b:"AP Psychology",t:"usually clears intro psych, a standard prerequisite."},
+    {b:"AP Biology",t:"good grounding for anatomy of the speech mechanism."},
+    {b:"AP Physics 1",t:"relevant to acoustics; useful if you might branch into audiology."}
+  ],
+  majors:["Communication sciences and disorders","Linguistics","Psychology","Education","Any major plus the CSD prerequisites"],
+  colleges:[
+    {s:"Vanderbilt",w:"Top-ranked program in the country."},
+    {s:"Northwestern",w:"Elite training with strong clinical placement."},
+    {s:"University of Iowa",w:"Historic powerhouse in speech and hearing science."},
+    {s:"University of Wisconsin",w:"Excellent program at public tuition."}
+  ],
+  collegeNote:"Practice requires a master's, and graduate admission is competitive, so major in communication sciences and disorders as an undergraduate if you can — it's the cleanest path and non-CSD applicants must complete prerequisite coursework first, which costs an extra year.",
+  pay:{range:"$80k–$100k",note:"Median around $89k with a master's, and demand is projected to grow well above average. School-based roles follow the academic calendar, which is a genuine quality-of-life advantage people underrate."},
+  truth:"This is one of the best-kept secrets in healthcare careers: strong pay, a two-year master's rather than a doctorate, real demand everywhere including rural areas, and a schedule that can follow the school year. The catch is that graduate admission is more competitive than the field's low profile suggests, so undergraduate GPA matters more than students expect."
+}
+);
+
+/* ---------- AP course study guidance ---------- */
+const AP_COURSES = [
+  {c:"AP Calculus AB/BC",
+   start:"Start review in January. This is a skills exam, and skills don't cram.",
+   tests:"Roughly half the exam is free response, graded on your work rather than your final answer. BC adds series, parametrics, and polar coordinates on top of everything in AB.",
+   miss:"Memorizing derivative rules without understanding what a derivative is. The free response asks you to interpret a rate in context, justify why a maximum exists, and explain what a value means with units. Students who only drilled procedures freeze on those.",
+   how:"Work old free response questions — College Board publishes decades of them free with official scoring guidelines. Do one under a timer, then grade yourself against the rubric line by line. That's where you learn that saying the function is increasing earns nothing, but saying f is increasing because f prime is positive on this interval earns the point. Justification language is a scoring skill you practice separately from the calculus itself.",
+   drill:"Two free response questions a week from January. One with a calculator, one without. Grade both against the published rubric the same day, while you still remember your reasoning.",
+   tools:"Build a deck in the MindMuse flashcard maker for derivative and integral rules, then set an exam countdown so review sessions space out instead of piling into May. After that, College Board's released exams are the only outside practice worth your time."},
+
+  {c:"AP Biology",
+   start:"Start in February. There is more raw content here than in almost any other AP.",
+   tests:"Application far more than recall. You'll be handed an unfamiliar experiment with data and asked to identify the control, predict a result, or explain an anomaly.",
+   miss:"Trying to memorize the textbook. Students spend months on vocabulary, then meet a question about an experiment on a species they've never heard of and panic, when the question was only testing whether they understand how natural selection works.",
+   how:"For every process you learn, ask what would happen if one step were blocked. That single habit converts memorization into the reasoning the exam wants. Practice reading graphs constantly, including error bars, since interpreting them is a guaranteed part of the exam. Learn the four big ideas as an organizing frame and hang details on them, rather than treating each unit as a separate list to memorize.",
+   drill:"One data-analysis free response a week, plus a weekly session where you redraw a major process — cellular respiration, protein synthesis — from blank paper with no notes.",
+   tools:"Use the MindMuse flashcard maker for vocabulary only. It's the one part of Bio where cards genuinely help. Put process explanations in your own words instead, since those need recall in full sentences, not on cards."},
+
+  {c:"AP Chemistry",
+   start:"Start in January. Consistently one of the hardest APs by pass rate.",
+   tests:"Quantitative problem solving plus particle-level explanation. You must explain why something happens at the molecular scale, not just calculate an answer.",
+   miss:"Plugging numbers into formulas without tracking units or picturing what's physically happening. The exam repeatedly asks for particle diagrams and written explanations, and most students have never once practiced drawing one.",
+   how:"Do problems by hand every day. Chemistry is a volume sport and there's no way around the reps. Draw a particle-level diagram for every concept you meet, because the exam asks for them and it's the fastest way to find out whether you actually understand a topic or merely recognize it. Practice writing full explanations that connect a macroscopic observation to particle behavior, since that structure earns most of the free response points.",
+   drill:"Ten problems a night, four nights a week, from January. One full timed free response section every other weekend.",
+   tools:"Make a MindMuse deck for polyatomic ions, solubility rules, and constants — pure memorization that pays off immediately. Everything else in Chem needs worked problems, not cards."},
+
+  {c:"AP Physics 1",
+   start:"Start in February. Historically the lowest pass rate of any AP exam.",
+   tests:"Conceptual reasoning above calculation. Many questions contain no numbers at all, and some ask for a paragraph-length argument.",
+   miss:"Hunting for an equation that matches the variables in the problem instead of first reasoning through what's physically happening. The exam is designed to punish that, which is why strong math students often score poorly.",
+   how:"Practice explaining your answer in words before you touch algebra. Draw a free body diagram on every single problem without exception, even the easy ones, until it's automatic — most lost points trace back to a missing or misdirected force. Work through the paragraph-response questions from released exams, because writing a physics argument in prose is a distinct skill nobody develops by accident.",
+   drill:"Three conceptual questions and one paragraph-argument question a week. Say your reasoning out loud before writing. If you can't explain it, you don't have it yet.",
+   tools:"Flashcards are weak here, since almost nothing is memorization. Use the MindMuse study timer for focused problem sessions instead, and the exam countdown to spread review across February through April."},
+
+  {c:"AP U.S. History",
+   start:"Start in January, and keep a running timeline from the first day of the course.",
+   tests:"Argumentation. The document-based question and long essay carry more weight than they feel like, and multiple choice alone won't carry you.",
+   miss:"Studying facts instead of practicing essays. You can know everything that happened between 1491 and the present and still score a 2, because the exam tests whether you can build a thesis and defend it under time pressure.",
+   how:"Write one timed DBQ a week starting in February, and learn the rubric with something close to legal precision — thesis, contextualization, evidence, analysis and reasoning. Points are awarded mechanically against those categories, so a beautiful essay that skips contextualization loses a point a mediocre one would have earned. Get a teacher to score at least three of them, since self-grading essays is far harder than self-grading math.",
+   drill:"One timed DBQ or LEQ per week from February. Afterward, rewrite the weakest paragraph rather than moving straight to a new prompt.",
+   tools:"Build a MindMuse deck of turning points with their significance, one per card, and use the exam countdown to schedule review across periods so you're not relearning 1491 to 1754 the night before."},
+
+  {c:"AP World History",
+   start:"Start in January. Themes over dates, always.",
+   tests:"Comparison and change over time across regions, using the same essay structures as APUSH.",
+   miss:"Treating the course as a list of civilizations rather than connected patterns of trade, empire, migration, and exchange. Questions ask you to compare across regions or explain change over a period, never to recite one place in isolation.",
+   how:"Build comparison charts by period — one axis for time period, one for region, filled in with political, economic, and social developments. That single document becomes your entire review. Practice the DBQ with the same rubric discipline as APUSH, and get comfortable using evidence from one region to explain a pattern in another, which is what the highest-scoring essays do.",
+   drill:"One comparison chart per period, then one timed essay per week from February.",
+   tools:"Use the MindMuse flashcard maker for empires, trade networks, and their defining features. Pair it with the exam countdown so each period gets revisited two or three times instead of once."},
+
+  {c:"AP English Language",
+   start:"Practice all year. There's no content to memorize, so late cramming does nothing.",
+   tests:"Rhetorical analysis, argument, and synthesis — three timed essays plus multiple choice on nonfiction passages.",
+   miss:"Identifying rhetorical devices without explaining what they accomplish. Naming a metaphor earns zero points. Explaining what that metaphor does to the reader and how it advances the writer's purpose is the whole assignment.",
+   how:"Read opinion journalism daily and ask what the writer is doing to you and how they're doing it. That habit builds the analytical instinct the exam rewards better than any review book. Write timed essays and get a teacher to score them, because the gap between what students think counts as analysis and what actually scores is wide and invisible from the inside. On the argument essay, take a real position quickly — nuanced fence-sitting reads as having nothing to say.",
+   drill:"One timed essay a week, rotating through all three types. One op-ed a day, with two sentences written on the writer's strategy.",
+   tools:"Skip flashcards here; device lists are exactly the trap. Use the MindMuse study timer for 40-minute timed essay blocks so you build stamina at exam pace."},
+
+  {c:"AP English Literature",
+   start:"Read consistently all year; start drilling essays in March.",
+   tests:"Close reading of poetry and prose, plus an open essay where you choose which work to write about.",
+   miss:"Summarizing the plot instead of analyzing how meaning is constructed. Retelling what happens in a novel is the most common way to score a 3 on an essay you felt good about.",
+   how:"Pick four works you know deeply for the open question and prepare them properly — themes, key passages, structural choices, and how the ending reframes the beginning. Practice poetry analysis weekly, since it's the section students fear most and improve on fastest with reps. Train yourself to write about how a choice creates an effect, linking technique to meaning inside the same sentence. That move is what separates a 5 from a 3.",
+   drill:"One poetry analysis a week from January. One timed open essay every two weeks from March.",
+   tools:"Make a MindMuse deck with one card per prepared work: themes, key passages, and two arguable claims you could defend. It's the only flashcard use that pays off in Lit."},
+
+  {c:"AP Psychology",
+   start:"Start in March. Content-heavy but conceptually the most approachable AP here.",
+   tests:"Vocabulary and its application to scenarios, plus research methods and data interpretation.",
+   miss:"Confusing similar terms across units. The exam deliberately baits pairs like negative reinforcement and punishment, or assimilation and accommodation.",
+   how:"This is the one AP where flashcards genuinely carry you, because the exam is largely a vocabulary test in disguise. Go one step further than definitions though: for each term, invent your own scenario illustrating it, since questions are almost always framed as short situations rather than straight definitions. Give extra weight to research methods and statistics, which appear throughout and are where students who only memorized definitions lose their points.",
+   drill:"Twenty flashcards a day from March, plus one written scenario for every confusable pair you keep missing.",
+   tools:"The ideal course for the MindMuse flashcard maker — paste your notes as term and definition per line and you'll have a full deck in seconds. Set the exam countdown so the deck cycles several times before May."},
+
+  {c:"AP Statistics",
+   start:"Start in February. Communication matters as much as calculation.",
+   tests:"Interpreting results in context and justifying your choice of procedure. The computation is the easy part.",
+   miss:"Giving a correct number with no interpretation. Bare numerical answers score near zero on free response, which shocks students who found the math simple all year.",
+   how:"Write every answer as a full sentence referencing the actual context — the variable, the population, the units. Memorize the conditions for each inference procedure and state them explicitly every time, since that's a scored step and not a formality. Practice choosing between procedures when the problem doesn't tell you which to use, because that selection is what the harder questions are really testing.",
+   drill:"Three free response questions a week, always written in full sentences. Keep a one-page sheet of procedures, their conditions, and when each applies.",
+   tools:"Build a MindMuse deck with procedures on the front and their conditions on the back — the highest-value deck in this entire course. Use the study timer for full free response sections at exam pace."},
+
+  {c:"AP U.S. Government",
+   start:"Start in March. One of the lighter AP content loads.",
+   tests:"Fifteen required Supreme Court cases and nine required foundational documents, plus data analysis and an argument essay.",
+   miss:"Skipping the required cases and documents because they look like optional background reading. They appear on the exam by name, and there's no way to reason around not knowing them.",
+   how:"Make a one-page sheet for each required case covering the facts, the constitutional question, the holding, and which clause it turned on. Do the same for the nine documents, focusing on the argument each one makes rather than trivia about it. Practice the argument essay, which asks you to take a position and defend it using specific required evidence — students who only reviewed content walk in having never written one.",
+   drill:"Three case sheets a week from March. One argument essay every two weeks.",
+   tools:"The required cases are perfect for the MindMuse flashcard maker: case name on the front, holding and clause on the back. Fifteen cards that reliably appear on the exam."},
+
+  {c:"AP Computer Science A",
+   start:"Write code weekly all year. Cramming genuinely does not work for this one.",
+   tests:"Java syntax, object-oriented design, arrays and ArrayLists, and hand-tracing code. Four free response questions, all handwritten.",
+   miss:"Reading code instead of writing it. Students practice in an editor all year with autocomplete and error underlines, then have to handwrite a full Java method on paper with no feedback and discover they never knew the syntax cold.",
+   how:"Write methods on paper without a compiler, then type them in afterward to see what you got wrong. That gap is exactly what the exam measures. Trace loops and arrays line by line using a variable table, since tracing questions are common and become cheap points once practiced. Learn the required class and method signatures precisely, because a header with the wrong return type loses points before your logic is even read.",
+   drill:"One handwritten free response question a week from January, typed in afterward to check. Two code segments traced by hand each week.",
+   tools:"Make a MindMuse deck for String, ArrayList, and array method signatures — the exact syntax you need to reproduce from memory. Use the study timer for handwritten free response practice at exam pace."}
+];
+
+/* ---------- official SAT/ACT concordance ---------- */
+const CONCORDANCE = {36:1590,35:1540,34:1500,33:1460,32:1430,31:1400,30:1370,29:1340,28:1310,
+  27:1280,26:1240,25:1210,24:1180,23:1140,22:1110,21:1080,20:1040,19:1010,18:970,17:930,16:890,
+  15:850,14:800,13:760,12:710,11:670,10:630};
+
+function actToSat(act){ return CONCORDANCE[Math.round(act)] || null; }
+function satToAct(sat){
+  let best = 10, gap = Infinity;
+  for(const [a,s] of Object.entries(CONCORDANCE)){
+    if(Math.abs(s - sat) < gap){ gap = Math.abs(s - sat); best = +a; }
+  }
+  return best;
+}
+
+function testPlan(gap){
+  if(gap <= 0) return {label:"You're already there", weeks:"Maintain",
+    body:"You've hit your target. Take one full timed practice test a month so you don't go stale, and put the hours into your GPA and activities instead — those are now the weaker part of your application."};
+  if(gap <= 50) return {label:"A small gap", weeks:"3–5 weeks",
+    body:"This size of jump usually comes from fixing careless errors, not learning new content. Take two timed practice tests, log every miss by question type, and drill only the categories that repeat. Most students find two or three recurring mistakes account for most of the gap."};
+  if(gap <= 100) return {label:"A real gap", weeks:"8–12 weeks",
+    body:"Plan on three to five focused hours a week. Alternate one week of targeted content review with one week of a full timed section. Timing pressure is usually as much of the problem as the content, and only full-length practice fixes that."};
+  if(gap <= 200) return {label:"A large gap", weeks:"4–6 months",
+    body:"This means real content gaps, most often in math. Go back to the underlying topics rather than doing more practice tests — tests diagnose, they don't teach. Budget five to eight hours a week and plan to sit the exam twice."};
+  return {label:"A very large gap", weeks:"6–12 months, and be realistic",
+    body:"Gains above 200 points are uncommon and come from rebuilding foundational math and reading skills, not from strategy. It's worth doing, but widen your college list in parallel and look hard at test-optional schools, where your GPA and essays carry the weight instead."};
+}
+
+
+const $ = id => document.getElementById(id);
+
+/* ---------- reveal ---------- */
+const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const observer = calm ? null : new IntersectionObserver(es => {
+  es.forEach(e => e.target.classList.toggle("in", e.isIntersecting));
+}, {threshold:0.14, rootMargin:"0px 0px -6% 0px"});
+function watch(scope){
+  (scope||document).querySelectorAll(".reveal:not([data-w])").forEach(el => {
+    el.dataset.w = "1";
+    if(observer) observer.observe(el); else el.classList.add("in");
+  });
+}
+watch();
+
+/* ---------- routing ---------- */
+const VIEWS = ["home","pinkprint","transcript","tests","gpa","study","tools"];
+function go(name){
+  if(!VIEWS.includes(name)) name = "home";
+  VIEWS.forEach(v => $("v-"+v).classList.toggle("on", v === name));
+  document.querySelectorAll("[data-go]").forEach(b =>
+    b.classList.toggle("on", b.dataset.go === name && b.closest("#navlinks")));
+  window.scrollTo(0,0);
+  watch($("v-"+name));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-go]");
+  if(b){ e.preventDefault(); go(b.dataset.go); }
+});
+go("home");
+
+/* ---------- pinkprint ---------- */
+const search = $("search"), results = $("results"), grid = $("grid");
+$("searchLabel").textContent = "Search all " + CAREERS.length + " careers";
+const featured = ["surgeon","swe","nurse","cyber","ux","pilot","lawyer","fashion"];
+$("quick").innerHTML = featured.map(id => {
+  const c = CAREERS.find(x => x.id === id);
+  return '<button type="button" data-id="'+c.id+'">'+c.name+'</button>';
+}).join("");
+$("quick").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(b) choose(b.dataset.id);
+});
+function renderList(list){
+  results.innerHTML = list.length
+    ? list.map(c => '<button type="button" role="option" data-id="'+c.id+'">'+c.name+'</button>').join("")
+    : '<div class="none">No match yet — MindMuse covers ' + CAREERS.length + ' careers so far.</div>';
+  results.classList.add("open"); search.setAttribute("aria-expanded","true");
+}
+function closeList(){ results.classList.remove("open"); search.setAttribute("aria-expanded","false"); }
+search.addEventListener("input", () => {
+  const q = search.value.trim().toLowerCase();
+  if(!q){ closeList(); return; }
+  renderList(CAREERS.filter(c => (c.name+" "+c.aka).toLowerCase().includes(q)));
+});
+search.addEventListener("focus", () => { if(search.value.trim()) renderList(CAREERS); });
+results.addEventListener("click", e => { const b = e.target.closest("button"); if(b) choose(b.dataset.id); });
+document.addEventListener("click", e => { if(!e.target.closest(".picker")) closeList(); });
+search.addEventListener("keydown", e => {
+  if(e.key === "Escape") closeList();
+  if(e.key === "ArrowDown"){ const f = results.querySelector("button"); if(f){ e.preventDefault(); f.focus(); } }
+});
+function choose(id){
+  const c = CAREERS.find(x => x.id === id); if(!c) return;
+  closeList(); search.value = "";
+  $("planHead").classList.remove("hidden");
+  $("planTitle").textContent = c.name;
+  $("planTagline").textContent = c.tagline;
+  grid.innerHTML = [9,10,11,12].map((y,i) =>
+    '<div class="year reveal" style="--d:'+(i*0.11)+'s"><h3>Grade '+y+'</h3><ul>' +
+    c.years[y].map(it => '<li class="'+(it.ap?"ap":"")+'">'+it.n +
+      (it.note ? '<span class="note">'+it.note+'</span>' : '') + '</li>').join("") +
+    '</ul></div>').join("");
+  $("panels").classList.remove("hidden");
+  $("creditList").innerHTML = c.credit.map(x =>
+    '<li><b>'+x.b+'</b><span class="why">'+x.t+'</span></li>').join("");
+  $("majorList").innerHTML = c.majors.map(m => '<li>'+m+'</li>').join("");
+  $("collegeList").innerHTML = c.colleges.map(x =>
+    '<li><b>'+x.s+'</b><span class="why">'+x.w+'</span></li>').join("");
+  $("collegeNote").textContent = c.collegeNote;
+  $("payRange").textContent = c.pay.range;
+  $("payNote").textContent = c.pay.note;
+  $("truthText").textContent = c.truth;
+  watch($("v-pinkprint"));
+  $("planHead").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+/* ---------- tests ---------- */
+let testType = "sat";
+$("testSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  testType = b.dataset.t;
+  $("testSeg").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  const sat = testType === "sat";
+  $("curHint").textContent = sat ? "Total score, 400–1600. Practice test counts."
+                                 : "Composite score, 1–36. Practice test counts.";
+  $("curScore").placeholder = sat ? "1120" : "23";
+  $("tgtScore").placeholder = sat ? "1350" : "30";
+  $("testOut").innerHTML = "";
+});
+$("testGo").addEventListener("click", () => {
+  const cur = parseFloat($("curScore").value), tgt = parseFloat($("tgtScore").value);
+  const months = parseFloat($("testDate").value);
+  const sat = testType === "sat";
+  const lo = sat ? 400 : 1, hi = sat ? 1600 : 36;
+  if(isNaN(cur) || isNaN(tgt) || cur < lo || cur > hi || tgt < lo || tgt > hi){
+    $("testOut").innerHTML = '<div class="result warn"><p class="rlabel">Check your numbers</p>' +
+      '<h3>That score is out of range</h3><p>Enter a '+(sat?"400–1600 SAT total":"1–36 ACT composite")+
+      ' for both fields.</p></div>';
+    return;
+  }
+  const gapRaw = tgt - cur;
+  const gapSat = sat ? gapRaw : (actToSat(tgt) - actToSat(cur));
+  const p = testPlan(gapSat);
+  const other = sat
+    ? "About a " + satToAct(cur) + " on the ACT"
+    : "About a " + actToSat(cur) + " on the SAT";
+  let timing = "";
+  if(!isNaN(months) && months > 0){
+    const needed = gapSat <= 50 ? 1 : gapSat <= 100 ? 3 : gapSat <= 200 ? 5 : 9;
+    timing = months >= needed
+      ? "Your timeline works. You have room to take the exam twice, which most students should."
+      : "Your timeline is tight for a gap this size. Either push the test date back, or plan on sitting it twice with the first attempt as a diagnostic.";
+  }
+  $("testOut").innerHTML =
+    '<div class="result"><p class="rlabel">'+p.label+'</p>' +
+    '<div class="big">'+(gapRaw>0?"+":"")+gapRaw+'</div>' +
+    '<h3 style="font-size:19px;margin:0">points to go</h3>' +
+    '<div class="row">' +
+      '<div><span>Study window</span><b>'+p.weeks+'</b></div>' +
+      '<div><span>Your score today</span><b>'+other+'</b></div>' +
+    '</div>' +
+    '<p>'+p.body+'</p>' + (timing ? '<p>'+timing+'</p>' : '') + '</div>';
+});
+
+/* ---------- gpa ---------- */
+$("gpaGo").addEventListener("click", () => {
+  const cur = parseFloat($("curGpa").value), tgt = parseFloat($("tgtGpa").value);
+  const done = parseFloat($("doneSem").value), left = parseFloat($("leftSem").value);
+  if([cur,tgt,done,left].some(isNaN) || left <= 0 || done < 0 || cur < 0 || tgt < 0 || cur > 5 || tgt > 5){
+    $("gpaOut").innerHTML = '<div class="result warn"><p class="rlabel">Check your numbers</p>' +
+      '<h3>Something\'s missing</h3><p>Fill in all four fields. Semesters remaining has to be at least 1.</p></div>';
+    return;
+  }
+  const need = (tgt * (done + left) - cur * done) / left;
+  const impossible = need > 4.0;
+  const trivial = need <= cur;
+  let label, head, body;
+  if(trivial){
+    label = "You're ahead of it";
+    head = "Hold steady";
+    body = "You're already above your target, so this is about not slipping. Keep your average at or above " +
+      need.toFixed(2) + " and you'll land it. This is the moment to add depth somewhere else — research, a job, a project — rather than chasing more decimal points.";
+  } else if(impossible){
+    label = "The math doesn't reach";
+    head = "This target is out of range";
+    body = "Hitting " + tgt.toFixed(2) + " would require a " + need.toFixed(2) +
+      " average across your remaining " + left + " semester" + (left===1?"":"s") +
+      ", which is above a perfect 4.0. That's worth knowing now, not senior spring. Aim at the highest GPA the math does allow, and put your energy into the parts of an application that aren't capped — essays, a spike in one activity, or a transfer pathway that resets the whole calculation.";
+  } else {
+    label = "Here's the number";
+    head = "You need a " + need.toFixed(2) + " average";
+    body = "That's your required average across all remaining " + left + " semester" + (left===1?"":"s") +
+      " to finish at " + tgt.toFixed(2) + ". " +
+      (need >= 3.9 ? "That's near-perfect, so it only works if you also lighten the schedule enough to protect it."
+       : need >= 3.5 ? "That's demanding but realistic with a schedule you can actually carry."
+       : "That's very achievable — you have more room than you probably think.");
+  }
+  const max = ((cur * done) + (4.0 * left)) / (done + left);
+  $("gpaOut").innerHTML =
+    '<div class="result'+(impossible?" warn":"")+'"><p class="rlabel">'+label+'</p>' +
+    '<div class="big">'+(impossible ? max.toFixed(2) : need.toFixed(2))+'</div>' +
+    '<h3 style="font-size:19px;margin:0">'+(impossible ? "highest GPA still reachable" : "average needed from here")+'</h3>' +
+    '<div class="row">' +
+      '<div><span>Where you are</span><b>'+cur.toFixed(2)+'</b></div>' +
+      '<div><span>Where you want to be</span><b>'+tgt.toFixed(2)+'</b></div>' +
+      '<div><span>Ceiling if you 4.0 out</span><b>'+max.toFixed(2)+'</b></div>' +
+    '</div><p>'+body+'</p></div>';
+});
+
+/* ---------- ap study ---------- */
+$("courses").innerHTML = AP_COURSES.map((c,i) =>
+  '<div class="course reveal" style="--d:'+((i%2)*0.08)+'s"><button type="button">'+c.c+'</button>' +
+  '<div class="body"><dl>' +
+  '<dt>When to start</dt><dd>'+c.start+'</dd>' +
+  '<dt>What it actually tests</dt><dd>'+c.tests+'</dd>' +
+  '<dt>The mistake that costs the most</dt><dd>'+c.miss+'</dd>' +
+  '<dt>How to study it</dt><dd>'+c.how+'</dd>' +
+  '<dt>Your weekly drill</dt><dd>'+c.drill+'</dd>' +
+  '<dt>Tools to use</dt><dd>'+c.tools+'</dd>' +
+  '</dl></div></div>').join("");
+$("courses").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  b.parentElement.classList.toggle("open");
+});
+watch($("v-study"));
+
+/* ---------- schedule builder ---------- */
+const GRADE_PTS = {"A":4.0,"A-":3.7,"B+":3.3,"B":3.0,"B-":2.7,"C+":2.3,"C":2.0,"C-":1.7,"D":1.0,"F":0};
+const SCALES = {std:{"Regular":0,"Honors":0.5,"AP / IB / Dual":1.0},
+                flat:{"Regular":0,"Honors":1.0,"AP / IB / Dual":1.0}};
+let scale = "std";
+let courses = [
+  {name:"", level:"Regular", grade:"A"},
+  {name:"", level:"Honors",  grade:"A"},
+  {name:"", level:"AP / IB / Dual", grade:"B+"},
+  {name:"", level:"Regular", grade:"A"}
+];
+
+$("scaleSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  scale = b.dataset.s;
+  $("scaleSeg").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  computeSchedule();
+});
+$("addCourse").addEventListener("click", () => {
+  courses.push({name:"", level:"Regular", grade:"A"});
+  renderCourses(); computeSchedule();
+});
+
+function renderCourses(){
+  $("courseRows").innerHTML = courses.map((c,i) => {
+    const lvls = Object.keys(SCALES[scale]).map(l =>
+      '<option'+(l===c.level?' selected':'')+'>'+l+'</option>').join("");
+    const grds = Object.keys(GRADE_PTS).map(g =>
+      '<option'+(g===c.grade?' selected':'')+'>'+g+'</option>').join("");
+    return '<div class="crow" data-i="'+i+'">' +
+      '<div class="top">' +
+        '<input type="text" data-k="name" placeholder="Class '+(i+1)+' (optional)" value="'+esc(c.name)+'">' +
+        '<button class="x" type="button" data-k="del" aria-label="Remove class">&times;</button>' +
+      '</div>' +
+      '<div class="sels">' +
+        '<select data-k="level">'+lvls+'</select>' +
+        '<select data-k="grade">'+grds+'</select>' +
+      '</div></div>';
+  }).join("");
+}
+$("courseRows").addEventListener("input", e => {
+  const row = e.target.closest(".crow"); if(!row) return;
+  const i = +row.dataset.i, k = e.target.dataset.k;
+  if(k === "name" || k === "level" || k === "grade"){ courses[i][k] = e.target.value; computeSchedule(); }
+});
+$("courseRows").addEventListener("change", e => {
+  const row = e.target.closest(".crow"); if(!row) return;
+  const i = +row.dataset.i, k = e.target.dataset.k;
+  if(k === "level" || k === "grade"){ courses[i][k] = e.target.value; computeSchedule(); }
+});
+$("courseRows").addEventListener("click", e => {
+  const btn = e.target.closest('[data-k="del"]'); if(!btn) return;
+  const i = +btn.closest(".crow").dataset.i;
+  courses.splice(i,1); renderCourses(); computeSchedule();
+});
+
+function computeSchedule(){
+  const n = courses.length;
+  if(!n){
+    $("schedOut").innerHTML = '<div class="result warn"><p class="rlabel">Empty schedule</p>' +
+      '<h3>Add at least one class</h3><p>There\'s nothing to average yet.</p></div>';
+    return;
+  }
+  const bonus = SCALES[scale];
+  let sumW = 0, sumU = 0, ceilW = 0, aps = 0;
+  courses.forEach(c => {
+    const pts = GRADE_PTS[c.grade] ?? 0;
+    const b = bonus[c.level] ?? 0;
+    sumU += pts;
+    sumW += pts + (pts > 0 ? b : 0);   // no weight bonus on a failed course
+    ceilW += 4.0 + b;
+    if(b > 0) aps++;
+  });
+  const w = sumW/n, u = sumU/n, cw = ceilW/n;
+
+  // fold into cumulative if the fields above are filled
+  const cur = parseFloat($("curGpa").value), done = parseFloat($("doneSem").value),
+        tgt = parseFloat($("tgtGpa").value);
+  let cumBlock = "";
+  if(!isNaN(cur) && !isNaN(done) && done >= 0){
+    const newCum = (cur*done + u) / (done + 1);
+    const bestCum = (cur*done + 4.0) / (done + 1);
+    let verdict = "";
+    if(!isNaN(tgt)){
+      verdict = newCum >= tgt
+        ? " That clears your " + tgt.toFixed(2) + " target."
+        : bestCum >= tgt
+          ? " Still short of " + tgt.toFixed(2) + ", but a straight-A semester would put you at " + bestCum.toFixed(2) + "."
+          : " Your target of " + tgt.toFixed(2) + " is out of reach this semester even with all A's — the ceiling is " + bestCum.toFixed(2) + ". Worth adjusting the goal rather than the effort.";
+    }
+    cumBlock = '<p>With these grades your cumulative unweighted GPA moves to <b>' + newCum.toFixed(2) +
+      '</b>.' + verdict + '</p>';
+  } else {
+    cumBlock = '<p>Fill in your current GPA and semesters completed above and this will also show what the semester does to your cumulative.</p>';
+  }
+
+  const load = aps === 0
+    ? "No weighted classes here, so weighted and unweighted are the same number."
+    : aps + " weighted class" + (aps===1?"":"es") + " in this schedule. Remember that most colleges strip the weighting and recalculate unweighted, so the left column is the one admissions usually sees.";
+
+  $("schedOut").innerHTML =
+    '<div class="result"><p class="rlabel">This semester</p>' +
+    '<div class="big">' + w.toFixed(2) + '</div>' +
+    '<h3 style="font-size:19px;margin:0 0 14px">weighted GPA as planned</h3>' +
+    '<div class="gpaline"><span>Unweighted, as planned</span><b>' + u.toFixed(2) + '</b></div>' +
+    '<div class="gpaline hi"><span>Highest possible &mdash; all A\'s, weighted</span><b>' + cw.toFixed(2) + '</b></div>' +
+    '<div class="gpaline"><span>Highest possible &mdash; all A\'s, unweighted</span><b>4.00</b></div>' +
+    '<p>' + load + '</p>' + cumBlock + '</div>';
+}
+
+["curGpa","doneSem","tgtGpa"].forEach(id =>
+  $(id).addEventListener("input", () => computeSchedule()));
+
+renderCourses();
+computeSchedule();
+
+/* ---------- flashcard maker ---------- */
+let deck = [], queue = [], pos = 0, flipped = false, missed = [];
+const SAMPLE = `mitochondria - the site of cellular respiration
+osmosis: diffusion of water across a semipermeable membrane
+enzyme - a protein that lowers the activation energy of a reaction
+homeostasis - maintaining a stable internal environment
+mitosis: cell division producing two identical diploid cells`;
+
+function parseDeck(text){
+  return text.split("\n").map(line => {
+    const t = line.trim();
+    if(!t) return null;
+    const m = t.match(/^(.*?)\s*(?:\t|\s[-–—]\s|:)\s*(.+)$/);
+    if(!m) return null;
+    const front = m[1].trim(), back = m[2].trim();
+    return (front && back) ? {f:front, b:back} : null;
+  }).filter(Boolean);
+}
+
+$("deckDemo").addEventListener("click", () => {
+  $("deckPaste").value = SAMPLE;
+  buildDeck();
+});
+$("deckBuild").addEventListener("click", buildDeck);
+
+function buildDeck(){
+  deck = parseDeck($("deckPaste").value);
+  if(!deck.length){
+    $("deckOut").innerHTML = '<div class="result warn"><p class="rlabel">Nothing to build</p>' +
+      '<h3>No cards found</h3><p>Each line needs a term and a definition with a dash, colon, or tab between them. ' +
+      'Try "photosynthesis - how plants convert light into sugar".</p></div>';
+    return;
+  }
+  missed = [];
+  startRound(deck.slice());
+}
+function startRound(cards){
+  queue = cards; pos = 0; flipped = false; missed = [];
+  renderCard();
+}
+function renderCard(){
+  if(pos >= queue.length){ renderDone(); return; }
+  const c = queue[pos];
+  const pct = Math.round((pos / queue.length) * 100);
+  $("deckOut").innerHTML =
+    '<div class="deckbar"><span class="count">Card ' + (pos+1) + ' of ' + queue.length + '</span></div>' +
+    '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+    '<div class="flash" id="flashCard">' +
+      '<span class="side">' + (flipped ? "Definition" : "Term") + '</span>' +
+      '<span class="txt">' + esc(flipped ? c.b : c.f) + '</span>' +
+      '<span class="tap">' + (flipped ? "Tap to see the term" : "Tap to reveal") + '</span>' +
+    '</div>' +
+    '<div class="btnrow" style="margin-top:16px">' +
+      '<button class="btn btn-primary" id="gotIt" type="button">I knew it</button>' +
+      '<button class="btn btn-ghost" id="missIt" type="button">Review again</button>' +
+    '</div>';
+  $("flashCard").addEventListener("click", () => { flipped = !flipped; renderCard(); });
+  $("gotIt").addEventListener("click", () => { pos++; flipped = false; renderCard(); });
+  $("missIt").addEventListener("click", () => { missed.push(queue[pos]); pos++; flipped = false; renderCard(); });
+}
+function renderDone(){
+  const total = queue.length, again = missed.length, got = total - again;
+  $("deckOut").innerHTML =
+    '<div class="result done"><p class="rlabel">Round complete</p>' +
+    '<div class="big">' + got + '/' + total + '</div>' +
+    '<h4>' + (again ? "cards you knew cold" : "you got every one") + '</h4>' +
+    '<p>' + (again
+      ? "Run the " + again + " you flagged again now, then come back to the full deck tomorrow. Repeating the misses immediately and the whole deck a day later is where the memory actually forms."
+      : "Don't run it again today — that's wasted time. Come back to this deck in two days, then in a week. Spacing is what turns a good round into something you still know in May.") + '</p>' +
+    '<div class="btnrow" style="justify-content:center">' +
+      (again ? '<button class="btn btn-primary" id="redoMissed" type="button">Drill the ' + again + ' I missed</button>' : '') +
+      '<button class="btn btn-ghost" id="redoAll" type="button">Restart full deck</button>' +
+    '</div></div>';
+  if(again) $("redoMissed").addEventListener("click", () => startRound(missed.slice()));
+  $("redoAll").addEventListener("click", () => startRound(deck.slice()));
+}
+function esc(t){ return String(t).replace(/[&<>]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+
+/* ---------- transcript review ---------- */
+const TS_GRADES = {"A+":4.0,"A":4.0,"A-":3.7,"B+":3.3,"B":3.0,"B-":2.7,
+  "C+":2.3,"C":2.0,"C-":1.7,"D+":1.3,"D":1.0,"D-":0.7,"F":0};
+const TS_SAMPLE = `Grade 9
+Biology  A
+English 9  B+
+Geometry  A-
+World Language I  B
+Physical Education  A
+
+Grade 10
+AP Chemistry  B
+Algebra II  A-
+AP World History  B+
+English 10  A-
+World Language II  B+`;
+
+CAREERS.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(c => {
+  const o = document.createElement("option");
+  o.value = c.id; o.textContent = c.name;
+  $("tsGoal").appendChild(o);
+});
+
+$("tsDemo").addEventListener("click", () => {
+  $("tsPaste").value = TS_SAMPLE;
+  $("tsYear").value = "10";
+  reviewTranscript();
+});
+$("tsGo").addEventListener("click", reviewTranscript);
+
+function numToLetter(n){
+  if(n >= 93) return "A"; if(n >= 90) return "A-"; if(n >= 87) return "B+";
+  if(n >= 83) return "B";  if(n >= 80) return "B-"; if(n >= 77) return "C+";
+  if(n >= 73) return "C";  if(n >= 70) return "C-"; if(n >= 65) return "D";
+  return "F";
+}
+function parseTranscript(text){
+  const out = []; let year = null;
+  text.split("\n").forEach(raw => {
+    const line = raw.trim();
+    if(!line) return;
+    const ym = line.match(/\b(?:grade\s*)?(9|10|11|12)(?:th)?\b/i);
+    const wm = line.match(/\b(freshman|sophomore|junior|senior)\b/i);
+    const isHeader = line.length < 24 && (wm || (ym && !/[A-F][+-]?\s*$/.test(line)));
+    if(isHeader){
+      if(wm) year = {freshman:9, sophomore:10, junior:11, senior:12}[wm[1].toLowerCase()];
+      else if(ym) year = +ym[1];
+      return;
+    }
+    // grade is the last token: a letter grade or a number
+    const gm = line.match(/(?:^|[\s,\-–—:\t])([A-Fa-f][+-]?|\d{1,3})\s*$/);
+    if(!gm) return;
+    let token = gm[1];
+    let letter = /^\d+$/.test(token) ? numToLetter(+token) : token.toUpperCase();
+    if(!(letter in TS_GRADES)) return;
+    const name = line.slice(0, gm.index).replace(/[\s,\-–—:\t]+$/,"").trim();
+    if(!name || name.length < 2) return;
+    out.push({name, letter, pts:TS_GRADES[letter], year,
+      ap:/\bAP\b|advanced placement|\bIB\b/i.test(name),
+      hon:/honors|honours|\bH\b\s|advanced|accelerated|dual/i.test(name)});
+  });
+  return out;
+}
+function normalize(t){
+  return t.toLowerCase()
+    .replace(/\b(ap|ib|honors|honours|advanced placement|dual enrollment|h)\b/g,"")
+    .replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+}
+function taken(courseName, list, needAP){
+  const target = normalize(courseName.split("/")[0].split(" or ")[0]);
+  if(!target) return false;
+  const key = target.split(" ").slice(0,2).join(" ");
+  return list.some(c => {
+    // an AP requirement isn't met by the regular version of the same subject
+    if(needAP && !c.ap) return false;
+    const n = normalize(c.name);
+    return n.includes(target) || target.includes(n) || (key.length > 4 && n.includes(key));
+  });
+}
+
+function reviewTranscript(){
+  const list = parseTranscript($("tsPaste").value);
+  if(!list.length){
+    $("tsOut").innerHTML = '<div class="result warn"><p class="rlabel">Nothing read</p>' +
+      '<h3>No classes found</h3><p>Each line needs a class name and a grade at the end, like ' +
+      '"AP Biology  B+" or "Algebra II 91". Tap the sample to see the format.</p></div>';
+    return;
+  }
+  const career = CAREERS.find(c => c.id === $("tsGoal").value) || CAREERS[0];
+  const nowYear = +$("tsYear").value;
+
+  const n = list.length;
+  const unw = list.reduce((a,c) => a + c.pts, 0) / n;
+  const wtd = list.reduce((a,c) => a + c.pts + (c.pts > 0 ? (c.ap ? 1 : c.hon ? 0.5 : 0) : 0), 0) / n;
+  const apCount = list.filter(c => c.ap).length;
+  const honCount = list.filter(c => c.hon && !c.ap).length;
+
+  /* trajectory, if years were labelled */
+  const byYear = {};
+  list.forEach(c => { if(c.year){ (byYear[c.year] = byYear[c.year] || []).push(c.pts); } });
+  const yrs = Object.keys(byYear).map(Number).sort();
+  let trend = "";
+  if(yrs.length >= 2){
+    const avg = y => byYear[y].reduce((a,b)=>a+b,0) / byYear[y].length;
+    const first = avg(yrs[0]), last = avg(yrs[yrs.length-1]);
+    const diff = last - first;
+    const line = yrs.map(y => "Grade " + y + ": " + avg(y).toFixed(2)).join(" · ");
+    trend = diff >= 0.25
+      ? "<p><b>Your trajectory is rising.</b> " + line + ". Admissions readers weigh the shape of a transcript, and an upward line reads as someone who adjusts and improves. Say so in your essays if the early years were rough.</p>"
+      : diff <= -0.25
+        ? "<p><b>Your trajectory is sloping down.</b> " + line + ". This is the pattern that worries readers most, and it's also the most fixable. One strong semester reverses the story — prioritise that over adding another AP.</p>"
+        : "<p><b>Your trajectory is steady.</b> " + line + ". Consistency is fine, but a visible jump in your junior year is the single most persuasive thing a transcript can show.</p>";
+  }
+
+  /* diff against the goal's pinkprint */
+  const missedAP = [], upcomingAP = [];
+  [9,10,11,12].forEach(y => {
+    career.years[y].forEach(item => {
+      if(!item.ap) return;
+      if(taken(item.n, list, true)) return;
+      (y < nowYear ? missedAP : upcomingAP).push({n:item.n, y});
+    });
+  });
+
+  let gapBlock = "";
+  if(upcomingAP.length){
+    gapBlock += '<h4 class="subhead">Still ahead of you</h4><ul class="sched">' +
+      upcomingAP.map(x => '<li><span class="when">Grade ' + x.y + '</span>' +
+        '<span class="what"><b>' + esc(x.n) + '</b></span></li>').join("") + '</ul>';
+  }
+  if(missedAP.length){
+    gapBlock += '<h4 class="subhead">On the map for years you\'ve finished</h4><ul class="sched">' +
+      missedAP.map(x => '<li><span class="when">Grade ' + x.y + '</span>' +
+        '<span class="what"><b>' + esc(x.n) + '</b><span>Ask your counselor whether this still fits, or whether a later or dual-enrollment version works.</span></span></li>').join("") + '</ul>' +
+      '<p>Missing a course from the suggested year is not a problem by itself — schedules conflict, prerequisites lock, and not every school offers every AP. It only matters if it\'s a prerequisite for something later, so bring this list to your counselor rather than treating it as a verdict.</p>';
+  }
+  if(!upcomingAP.length && !missedAP.length){
+    gapBlock = '<p>You\'ve already covered every AP on the ' + esc(career.name.toLowerCase()) +
+      ' map that this tool can detect. At that point more APs stop helping. Put the next year into depth instead — research, a job in the field, or a project nobody assigned you.</p>';
+  }
+
+  /* rigor read */
+  const yearsDone = Math.max(1, nowYear - 9);
+  const apPerYear = apCount / yearsDone;
+  const rigor = apCount === 0
+    ? "You haven't logged an AP or honors course yet. If your school offers them and you're aiming at " + career.name.toLowerCase() + ", add one or two in a subject you're genuinely strong in — starting with one you'll do well in matters more than starting with the hardest."
+    : apPerYear < 1.2
+      ? "That's a light-to-moderate load at " + apCount + " AP-level course" + (apCount===1?"":"s") + " so far. There's room to add, and the courses on your list above are the ones that would count for this path."
+      : apPerYear < 2.6
+        ? "That's a solid load at " + apCount + " AP-level courses. You're in the range where adding more only helps if your grades hold — a fifth AP that turns two B's into C's is a net loss on every measure."
+        : "That's a heavy load at " + apCount + " AP-level courses. Colleges compare you against what your own school offers, not a national maximum, so at this point protecting your grades and sleep is worth more than another AP.";
+
+  $("tsOut").innerHTML =
+    '<div class="result"><p class="rlabel">Transcript read</p>' +
+    '<div class="big">' + unw.toFixed(2) + '</div>' +
+    '<h3 style="font-size:19px;margin:0">unweighted GPA across ' + n + ' classes</h3>' +
+    '<div class="row">' +
+      '<div><span>Weighted</span><b>' + wtd.toFixed(2) + '</b></div>' +
+      '<div><span>AP level</span><b>' + apCount + '</b></div>' +
+      '<div><span>Honors</span><b>' + honCount + '</b></div>' +
+      '<div><span>Goal</span><b>' + esc(career.name) + '</b></div>' +
+    '</div>' +
+    '<p>' + rigor + '</p>' + trend +
+    '<h4 class="subhead">Against the ' + esc(career.name.toLowerCase()) + ' pinkprint</h4>' +
+    gapBlock +
+    '<p class="caveat">Read this as a starting point for a conversation with your counselor, not a verdict. It matches course names by text, so anything your school calls something unusual may not be recognised.</p>' +
+    '</div>';
+}
+
+/* ---------- AI advisor ---------- */
+const AI_ENDPOINT = "/.netlify/functions/advise";
+const GEM_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
+const GEM_MODELS = ["gemini-2.5-flash","gemini-2.0-flash","gemini-flash-latest"];
+const ADVISOR_SYSTEM = `You are the academic advisor inside MindMuse, a course-planning site for high school students. You are talking directly to a high schooler, usually 14 to 18 years old.
+
+Be specific and concrete. Be honest about tradeoffs, including when a goal is unrealistic on the current trajectory — say it kindly and immediately offer the alternative route. Never promise or predict admission anywhere. Course offerings and credit policies vary by school and state, so say when something needs confirming with their counselor. Name what's going well before what isn't. Grades are not a measure of a person's worth. Keep it to a few short paragraphs; they're on a phone.
+
+Stay on academics, courses, testing, college planning, and careers. If a student raises something personal or serious, respond with warmth, keep it brief, and encourage them to talk to a counselor or trusted adult rather than counselling them yourself.`;
+
+let chat = [], aiBusy = false, userKey = null, gemModel = null;
+
+function bubble(cls, who, text){
+  const d = document.createElement("div");
+  d.className = "msg " + cls;
+  d.innerHTML = (who ? '<span class="who">' + who + '</span>' : "") + esc(text);
+  $("chatLog").appendChild(d);
+  d.scrollIntoView({behavior:"smooth", block:"nearest"});
+  return d;
+}
+
+$("keySave").addEventListener("click", () => {
+  const k = $("keyInput").value.trim();
+  if(!k){ return; }
+  userKey = k;
+  $("keyInput").value = "";
+  $("keyBox").classList.add("hidden");
+  bubble("ai", "Advisor", "Connected. Tap \u201cAnalyze my transcript\u201d again.");
+});
+$("keyInput").addEventListener("keydown", e => { if(e.key === "Enter") $("keySave").click(); });
+
+/* Talk to Google straight from the page, using a key the person pasted in. */
+async function askGeminiDirect(msgs){
+  const models = gemModel ? [gemModel] : GEM_MODELS;
+  let lastErr = "";
+  for(const m of models){
+    const res = await fetch(GEM_URL + m + ":generateContent", {
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-goog-api-key":userKey},
+      body: JSON.stringify({
+        system_instruction:{parts:[{text:ADVISOR_SYSTEM}]},
+        contents: msgs.map(x => ({role: x.role === "assistant" ? "model" : "user",
+                                  parts:[{text:x.content}]})),
+        generationConfig:{maxOutputTokens:1200, temperature:0.7}
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(res.ok){
+      gemModel = m;   // remember the one that worked
+      const c = (data.candidates || [])[0];
+      if(c && c.finishReason === "SAFETY")
+        return "I couldn't answer that one. Try rephrasing, and keep it to school and career planning.";
+      const t = ((c && c.content && c.content.parts) || []).map(p => p.text).filter(Boolean).join("\n").trim();
+      return t || "No response came back. Try again.";
+    }
+    if(res.status === 404){ lastErr = "model"; continue; }   // try the next model name
+    if(res.status === 400 || res.status === 403){
+      userKey = null; $("keyBox").classList.remove("hidden");
+      throw new Error("Google wouldn't accept that key. Check it was copied fully, and that it's a Gemini key from aistudio.google.com/apikey.");
+    }
+    if(res.status === 429) throw new Error("That's Google's free-tier rate limit. Wait a minute and try again — it resets.");
+    throw new Error("Google returned an error (" + res.status + "). Try again shortly.");
+  }
+  throw new Error(lastErr === "model"
+    ? "None of the model names worked. Google renames these — check the current one at ai.google.dev and tell me, and I'll update the page."
+    : "Couldn't reach Google.");
+}
+
+async function askAI(userText, displayText){
+  if(aiBusy) return;
+  aiBusy = true;
+  $("aiGo").disabled = true; $("chatSend").disabled = true;
+
+  if(displayText !== false) bubble("you", "You", displayText || userText);
+  chat.push({role:"user", content:userText});
+  const thinking = bubble("ai think", "Advisor", "Reading your transcript\u2026");
+
+  try{
+    let reply = null;
+
+    if(userKey){
+      reply = await askGeminiDirect(chat);
+    } else {
+      const res = await fetch(AI_ENDPOINT, {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({messages: chat})
+      });
+      let data = {};
+      try { data = await res.json(); } catch {}
+
+      if(res.status === 404){
+        thinking.remove();
+        chat.pop();
+        $("keyBox").classList.remove("hidden");
+        bubble("err","", "There's no advisor function on this site yet.\n\nYou can still use this right now — paste a Gemini API key below and the page will talk to Google directly.");
+        $("keyBox").scrollIntoView({behavior:"smooth", block:"center"});
+        aiBusy = false; $("aiGo").disabled = false; $("chatSend").disabled = false;
+        return;
+      }
+      if(!res.ok || data.error) throw new Error(data.error || "Something went wrong reaching the advisor.");
+      reply = data.reply;
+    }
+
+    thinking.remove();
+    chat.push({role:"assistant", content:reply});
+    bubble("ai","Advisor", reply);
+    $("chatBox").classList.remove("hidden");
+    $("aiGo").textContent = "Start over";
+
+  } catch(err) {
+    thinking.remove();
+    chat.pop();
+    bubble("err","", err.message || "Couldn't reach the advisor.");
+  }
+
+  aiBusy = false;
+  $("aiGo").disabled = false; $("chatSend").disabled = false;
+}
+
+$("aiGo").addEventListener("click", () => {
+  const brief = transcriptBrief();
+  if(!brief){
+    $("chatLog").innerHTML = "";
+    bubble("err","", "Add your classes above first, then I'll have something to read. Tap \"Try a sample\" if you want to see how it works.");
+    return;
+  }
+  chat = [];
+  $("chatLog").innerHTML = "";
+  $("chatBox").classList.add("hidden");
+  askAI(brief, "Analyze my transcript");
+});
+
+$("chatSend").addEventListener("click", sendFollowUp);
+$("chatInput").addEventListener("keydown", e => { if(e.key === "Enter") sendFollowUp(); });
+function sendFollowUp(){
+  const t = $("chatInput").value.trim();
+  if(!t || aiBusy) return;
+  $("chatInput").value = "";
+  askAI(t);
+}
+
+/* ---------- study timer ---------- */
+let tRemain = 25*60, tRunning = false, tOnBreak = false, tRounds = 0, tTick = null;
+function paint(){
+  const m = Math.floor(tRemain/60), sec = tRemain%60;
+  $("clock").textContent = m + ":" + String(sec).padStart(2,"0");
+  $("phase").textContent = tOnBreak ? "Break" : "Focus block";
+  $("phase").classList.toggle("break", tOnBreak);
+  $("timerGo").textContent = tRunning ? "Pause" : "Start";
+}
+$("timerGo").addEventListener("click", () => {
+  tRunning = !tRunning;
+  if(tRunning){
+    tTick = setInterval(() => {
+      tRemain--;
+      if(tRemain <= 0){
+        if(!tOnBreak){ tRounds++; tOnBreak = true; tRemain = 5*60;
+          $("rounds").textContent = tRounds + " focus round" + (tRounds===1?"":"s") + " done. Stand up and look at something far away.";
+        } else { tOnBreak = false; tRemain = 25*60;
+          $("rounds").textContent = tRounds + " focus round" + (tRounds===1?"":"s") + " done. Back to it.";
+        }
+      }
+      paint();
+    }, 1000);
+  } else { clearInterval(tTick); }
+  paint();
+});
+$("timerReset").addEventListener("click", () => {
+  clearInterval(tTick); tRunning = false; tOnBreak = false; tRemain = 25*60; tRounds = 0;
+  $("rounds").textContent = "No rounds finished yet.";
+  paint();
+});
+paint();
+
+/* ---------- spaced review planner ---------- */
+$("planGo").addEventListener("click", () => {
+  const raw = $("examDate").value;
+  const name = $("examName").value.trim() || "your exam";
+  if(!raw){
+    $("planOut").innerHTML = '<div class="result warn"><p class="rlabel">Missing date</p>' +
+      '<h3>Pick your exam date</h3><p>The whole schedule is built backward from it.</p></div>';
+    return;
+  }
+  const exam = new Date(raw + "T12:00:00");
+  const today = new Date(); today.setHours(12,0,0,0);
+  const days = Math.round((exam - today) / 86400000);
+  if(days < 0){
+    $("planOut").innerHTML = '<div class="result warn"><p class="rlabel">Already passed</p>' +
+      '<h3>That date is behind you</h3><p>Pick a date in the future and I\'ll build the schedule.</p></div>';
+    return;
+  }
+  const STEPS = [
+    {d:60, t:"First full pass", n:"Work through every unit once. Don't aim for mastery — you're building a map so later sessions have something to attach to."},
+    {d:30, t:"Second pass, active", n:"Close the notes and write what you remember before opening anything. Whatever you can't produce is your real study list."},
+    {d:14, t:"Weak spots only", n:"Ignore what you already know. Everything you failed to retrieve two weeks ago gets the hours now."},
+    {d:7,  t:"Full timed practice", n:"One complete practice exam under real conditions and real timing. Score it honestly."},
+    {d:3,  t:"Fix what the practice exposed", n:"Target only the question types you lost points on. No new material this close in."},
+    {d:1,  t:"Light review, early night", n:"Skim your one-page summaries for an hour, then stop. Sleep does more for tomorrow's score than another three hours will."}
+  ];
+  const live = STEPS.filter(x => x.d <= days);
+  const fmt = dt => dt.toLocaleDateString(undefined, {month:"short", day:"numeric"});
+  let rows = live.map(x => {
+    const when = new Date(exam.getTime() - x.d * 86400000);
+    return '<li><span class="when">' + fmt(when) + '</span>' +
+      '<span class="what"><b>' + esc(x.t) + '</b><span>' + x.n + '</span></span></li>';
+  }).join("");
+  let head;
+  if(!live.length){
+    head = "<p>Your exam is in " + days + " day" + (days===1?"":"s") +
+      ", which is inside every checkpoint. At this range, do one timed practice section today, fix what it exposes tomorrow, and sleep properly the night before. That's the whole plan.</p>";
+    rows = "";
+  } else if(live.length < STEPS.length){
+    head = "<p>You have " + days + " days, so the earlier checkpoints have already passed. Here's what still fits — start with the first one this week.</p>";
+  } else {
+    head = "<p>You have " + days + " days, which is enough room for the full schedule. Put these six dates in your calendar now, while it still feels far away.</p>";
+  }
+  $("planOut").innerHTML =
+    '<div class="result"><p class="rlabel">Review schedule</p>' +
+    '<div class="big">' + days + '</div>' +
+    '<h3 style="font-size:19px;margin:0">days until ' + esc(name) + '</h3>' +
+    head + (rows ? '<ul class="sched">' + rows + '</ul>' : '') + '</div>';
+});
+
+</script>
+</body>
+</html>
